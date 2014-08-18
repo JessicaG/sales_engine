@@ -4,8 +4,9 @@ require 'csv'
 class CustomerRepositoryTest < Minitest::Test
 
   def repository
+    engine = SalesEngine.new
     csv_dir='./test/fixtures'
-    @repository ||= CustomerRepository.new(self, csv_dir)
+    @repository ||= CustomerRepository.new(engine, csv_dir)
   end
 
   def test_it_has_more_than_five_customers

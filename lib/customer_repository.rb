@@ -1,19 +1,15 @@
 require_relative 'customer'
+require_relative 'repository_parser'
 
 class CustomerRepository
+  # include RepositoryParser
+
   attr_reader :engine,
               :customers
 
   def initialize(engine, csv_dir)
     @engine                = engine
-    @customers             = []
-    @customer_repository ||= CSV.open(csv_dir + '/customers.csv',
-    headers: true, header_converters: :symbol)
-    build_records(@customer_repository)
-  end
-
-  def build_records(repository)
-    @customers = repository.map { |row| Customer.new(row, self) }
+    @customers             = RepositoryParser.load('./data/customers.csv', class_name: Customer)
   end
 
   def inspect
@@ -22,6 +18,10 @@ class CustomerRepository
 
   def random
     customers.shuffle.pop
+  end
+
+  def count
+    customers.count
   end
 
 
