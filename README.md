@@ -10,4 +10,4 @@ Abstract
 ################
 Let’s write a data reporting tool that manipulates and reports on merchant transactional data.
 
-Project done by Jessica Goulding and Glen Egbert
+Project done by Jessica Goulding and Glen Egbert.
