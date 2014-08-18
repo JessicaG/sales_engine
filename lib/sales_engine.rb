@@ -10,7 +10,7 @@ class SalesEngine
   end
 
   def startup
-    @customer_repository      = CustomerRepository.new(self, csv_dir)
+    @customer_repository = CustomerRepository.new(self, csv_dir)
   end
 
 end
