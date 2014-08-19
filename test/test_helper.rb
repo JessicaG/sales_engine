@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-# require './lib/sales_engine'
+require './lib/sales_engine'
 # require './lib/invoice'
 # require './lib/invoice_repository'
 # require './lib/invoice_item'
