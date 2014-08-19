@@ -4,8 +4,9 @@ require 'csv'
 class CustomerRepositoryTest < Minitest::Test
 
   def repository
+    engine = SalesEngine.new
     csv_dir='./test/fixtures'
-    @repository ||= CustomerRepository.new(self, csv_dir)
+    @repository ||= CustomerRepository.new(engine, csv_dir)
   end
 
   def test_it_has_more_than_five_customers
@@ -13,13 +14,11 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_a_random_customer
-    skip
     random_customer = repository.random
     assert random_customer
   end
 
   def test_it_finds_single_customer_by_first_name
-    skip
     result = repository.find_by_first_name('Joey')
     assert result.first_name, 'Joey'
   end
