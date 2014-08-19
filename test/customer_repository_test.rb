@@ -14,13 +14,11 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_a_random_customer
-    skip
     random_customer = repository.random
     assert random_customer
   end
 
   def test_it_finds_single_customer_by_first_name
-    skip
     result = repository.find_by_first_name('Joey')
     assert result.first_name, 'Joey'
   end
