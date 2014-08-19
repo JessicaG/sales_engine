@@ -36,3 +36,10 @@ Refactoring
 
 Thursday
 Assess
+
+
+Refactoring Ideas
+- changing the file path from testing to user provided directory for all repos
+
+Would be nice if time
+- clean data
