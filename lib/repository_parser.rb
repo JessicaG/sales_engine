@@ -3,6 +3,7 @@
 # require_relative 'invoice_item'
 # require_relative 'customer'
 # require_relative 'invoice'
+require 'csv'
 
 class RepositoryParser
 

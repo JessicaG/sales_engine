@@ -15,6 +15,13 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 25, customer_repository.customers.length
   end
 
+  def test_it_returns_array_of_customers
+    customer_repository = CustomerRepository.new('./test/fixtures/customers.csv').all
+
+    assert customer_repository.is_a?(Array)
+    assert customer_repository.first.is_a?(Customer)
+  end
+
   # def repository
   #   engine = SalesEngine.new
   #   csv_dir='./test/fixtures'
@@ -24,7 +31,7 @@ class CustomerRepositoryTest < Minitest::Test
   # def test_it_has_more_than_five_customers
   #   assert repository.count > 5
   # end
-  #
+
   # def test_it_returns_a_random_customer
   #   random_customer = repository.random
   #   assert random_customer
