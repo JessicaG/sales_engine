@@ -1,6 +1,5 @@
-require_relative 'customer'           # => true
-require_relative 'repository_parser'  # => true
-require 'pry'                         # => true
+require_relative 'customer'          
+require_relative 'repository_parser'                          # => true
 
 class CustomerRepository
   attr_reader :customers  # => nil
