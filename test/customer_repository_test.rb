@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-require_relative '../lib/customer_repository'
 require 'csv'
 
 class CustomerRepositoryTest < Minitest::Test
