@@ -2,9 +2,9 @@ require_relative 'repository_parser'
 
 class InvoiceItemRepository
 
-  attr_reader :items
+  attr_reader :invoice_items
 
   def initialize(file = './data/invoice_items.csv')
-    @items = RepositoryParser.load(file, class_name: Invoice_item)
+    @invoice_items = RepositoryParser.load(file, class_name: Invoice_item)
   end
 end

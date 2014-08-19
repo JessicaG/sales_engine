@@ -5,7 +5,7 @@ class SalesEngine
   attr_reader :customer_repository,
               :merchant_repository,
               :invoice_repository,
-              :@invoice_item_repository,
+              :invoice_item_repository,
               :item_repository,
               :transaction_repository
               # :csv_dir

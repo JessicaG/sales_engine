@@ -2,7 +2,7 @@ require_relative 'repository_parser'
 
 class RepositorySearch
 
-  attr_accessor :repository_objects
+  attr_reader :repository_objects
 
   def initialize(filename)
     @repository_objects = load(filename)
@@ -17,7 +17,7 @@ class RepositorySearch
   end
 
   def find_by(attribute, *args)
-    
+
   end
 
 end
