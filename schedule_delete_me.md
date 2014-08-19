@@ -2,7 +2,8 @@ Before Tuesday @ 9
 
 Glen
 Transaction Repo
-Item
+Item Repo
+Invoice Item Repo
 
 Jessica
 Customer
@@ -34,4 +35,4 @@ Wed
 Refactoring
 
 Thursday
-Assess 
+Assess

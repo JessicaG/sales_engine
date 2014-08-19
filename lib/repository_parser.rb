@@ -1,4 +1,6 @@
 require_relative 'transaction'
+require_relative 'item'
+require_relative 'invoice_item'
 
 class RepositoryParser
 
