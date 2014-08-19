@@ -1,3 +1,5 @@
+require_relative 'transaction'
+
 class RepositoryParser
 
   def self.load(filename, class_name: nil)
