@@ -6,12 +6,6 @@ class InvoiceRepositoryTest < Minitest::Test
     repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
   end
 
-  # def test_it_loads_items_by_default
-  #   invoice_repository = InvoiceRepository.new
-  #
-  #   assert_equal 4843, invoice_repository.invoices.length
-  # end
-
   def test_it_can_load_other_items
     assert_equal 25, repository.invoices.length
   end
