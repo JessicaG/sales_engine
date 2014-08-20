@@ -30,10 +30,8 @@ class CustomerRepository
   end
 
   def no_attribute_error(attribute)
-    if value.class != Fixnum
-      customer.send(attribute).downcase == value.downcase
+    customer.send(attribute) == value
     puts "That #{attribute} doesn't exist"
-    end
   end
 
   def find_by(attribute, value)
@@ -41,7 +39,7 @@ class CustomerRepository
       if !customer.respond_to?(attribute)
         no_attribute_error(attribute)
       else
-      customer.send(attribute) == value
+      customer.send(attribute).downcase == value.downcase
       end
     end
   end
@@ -51,7 +49,7 @@ class CustomerRepository
       if !customer.respond_to?(attribute)
         no_attribute_error(attribute)
       else
-      customer.send(attribute) == value
+      customer.send(attribute).downcase == value.downcase
       end
     end
   end

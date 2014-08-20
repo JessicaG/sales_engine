@@ -19,5 +19,7 @@ class ItemRepository
   def find_by_id_number(attribute)
     @items.detect {|item| item.id =~ /^#{attribute}$/i}
   end
-
+  ##Methods needed for all, random, inspect,
+  ##find by, fina all by,
+  ##find all by name
 end

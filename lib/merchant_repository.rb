@@ -20,4 +20,11 @@ class MerchantRepository
     merchants.count
   end
 
+  def all
+    merchants
+  end
+
+  ##Methods needed for find by, find all by
+  ## find by name, find by id
+
 end
