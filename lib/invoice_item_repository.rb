@@ -8,7 +8,44 @@ class InvoiceItemRepository
     @invoice_items = RepositoryParser.load(file, class_name: Invoice_item)
   end
 
-  ##Methods needed for random, inspect, all
-  ##find by, find all by, find by id,
-  ##find by item id, find all by quantity
+def inspect
+   "#<#{self.class} #{@invoice_items.size} rows>"
+end
+
+def all
+  @invoice_items
+end
+
+def random
+  invoice_items.sample
+end
+
+  def find_by(attribute, value)
+    invoice_items.detect do |invoice_item|
+      invoice_item.send(attribute) =~ /^#{value}$/i
+    end
+  end
+
+  def find_all_by(attribute, value)
+    invoice_items.select do |invoice_item|
+      invoice_item.send(attribute) =~ /^#{value}$/i
+    end
+  end
+
+  def find_by_id(value)
+    find_by('id', value)
+  end
+
+  def find_by_item_id(value)
+    find_by('item_id', value)
+  end
+
+  def find_all_by_quantity(value)
+    find_all_by('quantity',value)
+  end
+
+  def find_all_by_invoice_id(value)
+    find_all_by('invoice_id', value)
+  end
+
 end

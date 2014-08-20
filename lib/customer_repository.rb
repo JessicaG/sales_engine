@@ -23,6 +23,7 @@ class CustomerRepository
 
   def random
     customers.shuffle.pop
+    # I used .sample on the others.  Should we be consistent? Is one way any better?
   end
 
   def count
