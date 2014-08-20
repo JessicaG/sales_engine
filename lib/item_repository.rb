@@ -20,24 +20,24 @@ class ItemRepository
     items.sample
   end
 
-    def find_by(attribute, value)
-      items.detect do |item|
+  def find_by(attribute, value)
+    items.detect do |item|
       item.send(attribute) =~ /^#{value}$/i
-      end
     end
+  end
 
-    def find_all_by(attribute, value)
-      items.select do |item|
+  def find_all_by(attribute, value)
+    items.select do |item|
       item.send(attribute) =~ /^#{value}$/i
-      end
     end
+  end
 
-    def find_by_id(value)
-      find_by('id', value)
-    end
+  def find_by_id(value)
+    find_by('id', value)
+  end
 
-    def find_all_by_merchant_id(value)
-      find_all_by('merchant_id',value)
-    end
+  def find_all_by_merchant_id(value)
+    find_all_by('merchant_id',value)
+  end
 
 end

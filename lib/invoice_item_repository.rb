@@ -8,17 +8,17 @@ class InvoiceItemRepository
     @invoice_items = RepositoryParser.load(file, class_name: Invoice_item)
   end
 
-def inspect
-   "#<#{self.class} #{@invoice_items.size} rows>"
-end
+  def inspect
+     "#<#{self.class} #{@invoice_items.size} rows>"
+  end
 
-def all
-  @invoice_items
-end
+  def all
+    @invoice_items
+  end
 
-def random
-  invoice_items.sample
-end
+  def random
+    invoice_items.sample
+  end
 
   def find_by(attribute, value)
     invoice_items.detect do |invoice_item|

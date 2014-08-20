@@ -22,13 +22,13 @@ class MerchantRepository
 
   def find_by(attribute, value)
     merchants.detect do |merchant|
-    merchant.send(attribute) =~ /^#{value}$/i
+      merchant.send(attribute) =~ /^#{value}$/i
     end
   end
 
   def find_all_by(attribute, value)
     merchants.select do |merchant|
-    merchant.send(attribute) =~ /^#{value}$/i
+      merchant.send(attribute) =~ /^#{value}$/i
     end
   end
 

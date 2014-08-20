@@ -1,8 +1,3 @@
-# require_relative 'transaction'
-# require_relative 'item'
-# require_relative 'invoice_item'
-# require_relative 'customer'
-# require_relative 'invoice'
 require 'csv'
 
 class RepositoryParser
