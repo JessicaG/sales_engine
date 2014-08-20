@@ -4,7 +4,7 @@ class MerchantRepository
 
   attr_reader :merchants, :sales_engine
 
-  def initialize(file = './data/merchants.csv', engine)
+  def initialize(file = './test/fixtures/merchants.csv', engine)
     @merchants = create_merchants_from(file)
     @sales_engine = engine
   end
