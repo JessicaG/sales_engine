@@ -2,11 +2,19 @@ require_relative 'repository_parser'
 
 class MerchantRepository
 
-  attr_reader :merchants
+  attr_reader :merchants, :sales_engine
 
-  def initialize(file = './data/merchants.csv')
-    @merchants = RepositoryParser.load(file, class_name: Merchant)
+  def initialize(file = './data/merchants.csv', engine)
+    @merchants = create_merchants_from(file)
+    @sales_engine = engine
   end
+
+  #
+  def create_merchants_from(file)
+    csv = RepositoryParser.load(file, class_name: Merchant)
+    csv.collect { |row| Merchant.new(row, self) }
+  end
+  #
 
   def inspect
      "#<#{self.class} #{@merchants.size} rows>"
@@ -38,6 +46,10 @@ class MerchantRepository
 
   def find_by_id(value)
     find_by('id', value)
+  end
+
+  def find_items_by_merchant_id(id)
+    engine.find_items_by_merchant_id(id)
   end
 
 end

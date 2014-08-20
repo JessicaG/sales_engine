@@ -19,12 +19,15 @@ class SalesEngine
   # end
 
   def startup
-    @merchant_repository      = MerchantRepository.new
+    @merchant_repository      = MerchantRepository.new(self)
     @customer_repository      = CustomerRepository.new
     @invoice_repository       = InvoiceRepository.new
     @invoice_item_repository  = InvoiceItemRepository.new
     @item_repository          = ItemRepository.new
     @transaction_repository   = TransactionRepository.new
+  end
+
+  def find_items_by_merchant_id
   end
 
 end
