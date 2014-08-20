@@ -9,7 +9,7 @@ class InvoiceRepository
   end
 
   def inspect
-     "#<#{self.class} #{@customers.size} rows>"
+     "#<#{self.class} #{@invoices.size} rows>"
   end
 
   def all
@@ -17,35 +17,22 @@ class InvoiceRepository
   end
 
   def random
-    invoices.shuffle.pop
+    invoices.sample
   end
 
   def count
     invoices.count
   end
 
-  def no_attribute_error(attribute)
-    invoice.send(attribute) == value
-    puts "That #{attribute} doesn't exist"
-  end
-
   def find_by(attribute, value)
     invoices.detect do |invoice|
-      if !invoice.respond_to?(attribute)
-        no_attribute_error(attribute)
-      else
-      invoice.send(attribute).downcase == value.downcase
-      end
+      invoice.send(attribute) =~ /^#{value}$/i
     end
   end
 
   def find_all_by(attribute, value)
     invoices.select do |invoice|
-      if !invoice.respond_to?(attribute)
-        no_attribute_error(attribute)
-      else
-      invoice.send(attribute).downcase == value.downcase
-      end
+      invoice.send(attribute) =~ /^#{value}$/i
     end
   end
 
@@ -57,8 +44,8 @@ class InvoiceRepository
     find_by('id', value)
   end
 
-  def find_all_by_id(value)
-    find_all_by('id', value)
+  def find_all_by_customer_id(value)
+    find_all_by('customer_id', value)
   end
 
   def find_all_by_status(value)

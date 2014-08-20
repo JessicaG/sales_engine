@@ -1,6 +1,6 @@
 class Invoice
 
-  attr_reader :id, :customer_id, :merchant_id, :created_at, :updated_at
+  attr_reader :id, :customer_id, :merchant_id, :created_at, :updated_at, :status
 
   def initialize(data)
     @id =                          data[:id]
@@ -8,5 +8,6 @@ class Invoice
     @merchant_id =                 data[:merchant_id]
     @created_at =                  data[:created_at]
     @updated_at =                  data[:updated_at]
+    @status =                      data[:status]
   end
 end

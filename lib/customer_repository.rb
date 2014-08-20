@@ -22,36 +22,22 @@ class CustomerRepository
   end
 
   def random
-    customers.shuffle.pop
-    # I used .sample on the others.  Should we be consistent? Is one way any better?
+    customers.sample
   end
 
   def count
     customers.count
   end
 
-  def no_attribute_error(attribute)
-    customer.send(attribute) == value
-    puts "That #{attribute} doesn't exist"
-  end
-
   def find_by(attribute, value)
     customers.detect do |customer|
-      if !customer.respond_to?(attribute)
-        no_attribute_error(attribute)
-      else
-      customer.send(attribute).downcase == value.downcase
-      end
+      customer.send(attribute) =~ /^#{value}$/i
     end
   end
 
   def find_all_by(attribute, value)
     customers.select do |customer|
-      if !customer.respond_to?(attribute)
-        no_attribute_error(attribute)
-      else
-      customer.send(attribute).downcase == value.downcase
-      end
+      customer.send(attribute) =~ /^#{value}$/i
     end
   end
 

@@ -15,8 +15,10 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_a_random_invoice
-    random_invoice = repository.random
-    assert random_invoice
+      random_invoice1 = repository.random
+      random_invoice2 = repository.random
+
+      refute random_invoice1 == random_invoice2
   end
 
   def test_it_finds_a_single_invoice_by_id
@@ -24,36 +26,21 @@ class InvoiceRepositoryTest < Minitest::Test
     assert result.id, '1'
   end
 
-  def test_it_finds_mulitple_invoice_by_id
-    skip
-    result = repository.find_all_by_id('2')
-    assert '2', result.id
+  def test_it_finds_mulitple_invoices_by_customer_id
+    result = repository.find_all_by_customer_id('3')
+    assert_equal 4, result.count
   end
 
   def test_it_can_find_by_status
-    skip
     result = repository.find_by_status('shipped')
-    assert 1, result.count
+    assert "shipped", result.status
   end
 
   def test_it_can_find_all_by_status
-    skip
     result = repository.find_all_by_status('shipped')
     assert 25, result.count
   end
 
-  def test_it_responds_to_is_true_if_there_is_a_valid_attribute
-    invoice_data = {id: '1', customer_id: '8', merchant_id: '38' }
-    invoice = Invoice.new(invoice_data)
-    assert invoice.respond_to?('id')
-    assert invoice.respond_to?('customer_id')
-  end
 
-  def test_it_does_not_respond_if_there_is_not_a_valid_attribute
-    invoice_data = {id: '1', customer_id: '8', merchant_id: '38' }
-    invoice = Invoice.new(invoice_data)
-    refute invoice.respond_to?('invoice_id')
-    refute invoice.respond_to?('name')
-  end
 
 end

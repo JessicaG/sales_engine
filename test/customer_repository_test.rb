@@ -23,9 +23,6 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_a_random_customer
-    # random_customer = repository.random
-    # assert random_customer
-
     random_customer1 = repository.random
     random_customer2 = repository.random
 
@@ -46,20 +43,5 @@ class CustomerRepositoryTest < Minitest::Test
     result = repository.find_all_by_last_name('Ondricka')
     assert 2, result.count
   end
-
-  def test_it_responds_to_is_true_if_there_is_a_valid_attribute
-    customer_data = {id: '1', first_name: 'Joey', created_at: '05/05/2014', updated_at: '04/35/2034' }
-    customer = Customer.new(customer_data)
-    assert customer.respond_to?('id')
-    assert customer.respond_to?('first_name')
-  end
-
-  def test_it_does_not_respond_if_there_is_not_a_valid_attribute
-    customer_data = {id: '1', first_name: 'Joey', created_at: '05/05/2014', updated_at: '04/35/2034' }
-    customer = Customer.new(customer_data)
-    refute customer.respond_to?('customer_id')
-    refute customer.respond_to?('name')
-  end
-  # I'm not really sure what these last two tests are designed to test for
 
 end
