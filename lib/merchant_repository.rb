@@ -8,23 +8,36 @@ class MerchantRepository
     @merchants = RepositoryParser.load(file, class_name: Merchant)
   end
 
-  def inspect
-     "#<#{self.class} #{@merchants.size} rows>"
+def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+end
+
+def all
+  @merchants
+end
+
+def random
+  merchants.sample
+end
+
+  def find_by(attribute, value)
+    merchants.detect do |merchant|
+    merchant.send(attribute) =~ /^#{value}$/i
+    end
   end
 
-  def random
-    merchants.shuffle.sample
+  def find_all_by(attribute, value)
+    merchants.select do |merchant|
+    merchant.send(attribute) =~ /^#{value}$/i
+    end
   end
 
-  def count
-    merchants.count
+  def find_by_name(value)
+    find_by('name', value)
   end
 
-  def all
-    merchants
+  def find_by_id(value)
+    find_by('id', value)
   end
-
-  ##Methods needed for find by, find all by
-  ## find by name, find by id
 
 end
