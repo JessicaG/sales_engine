@@ -8,17 +8,17 @@ class MerchantRepository
     @merchants = RepositoryParser.load(file, class_name: Merchant)
   end
 
-def inspect
-   "#<#{self.class} #{@merchants.size} rows>"
-end
+  def inspect
+     "#<#{self.class} #{@merchants.size} rows>"
+  end
 
-def all
-  @merchants
-end
+  def all
+    @merchants
+  end
 
-def random
-  merchants.sample
-end
+  def random
+    merchants.sample
+  end
 
   def find_by(attribute, value)
     merchants.detect do |merchant|
