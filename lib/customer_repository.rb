@@ -1,8 +1,8 @@
-require_relative 'customer'          
-require_relative 'repository_parser'                          # => true
+require_relative 'customer'
+require_relative 'repository_parser'
 
 class CustomerRepository
-  attr_reader :customers  # => nil
+  attr_reader :customers
 
   # def initialize(engine, csv_dir)
   #   @engine                = engine
@@ -10,7 +10,7 @@ class CustomerRepository
   # end
 
   def initialize(file = './data/customers.csv')
-    @customers = RepositoryParser.load(file, class_name: Customer)  # ~> NameError: uninitialized constant RepositoryParser::CSV
+    @customers = RepositoryParser.load(file, class_name: Customer)
   end
 
   def inspect
@@ -29,16 +29,52 @@ class CustomerRepository
     customers.count
   end
 
+  def no_attribute_error(attribute)
+    if value.class != Fixnum
+      customer.send(attribute).downcase == value.downcase
+    puts "That #{attribute} doesn't exist"
+    end
+  end
+
+  def find_by(attribute, value)
+    customers.detect do |customer|
+      if !customer.respond_to?(attribute)
+        no_attribute_error(attribute)
+      else
+      customer.send(attribute) == value
+      end
+    end
+  end
+
+  def find_all_by(attribute, value)
+    customers.select do |customer|
+      if !customer.respond_to?(attribute)
+        no_attribute_error(attribute)
+      else
+      customer.send(attribute) == value
+      end
+    end
+  end
+
+  def find_by_first_name(value)
+    find_by('first_name', value)
+  end
+
+  def find_by_last_name(value)
+    find_by('last_name', value)
+  end
+
+  def find_by_id(value)
+    find_by('id', value)
+  end
+
+  def find_all_by_first_name(value)
+    find_all_by('first_name', value)
+  end
+
+  def find_all_by_last_name(value)
+    find_all_by('last_name', value)
+  end
+
 
 end
-
-customer_repository = CustomerRepository.new
-customer_repository.all
-
-# ~> NameError
-# ~> uninitialized constant RepositoryParser::CSV
-# ~>
-# ~> /Users/glenegbert/Dropbox/ruby_projects/sales_engine-1/lib/repository_parser.rb:10:in `load'
-# ~> /Users/glenegbert/Dropbox/ruby_projects/sales_engine-1/lib/customer_repository.rb:14:in `initialize'
-# ~> /Users/glenegbert/Dropbox/ruby_projects/sales_engine-1/lib/customer_repository.rb:36:in `new'
-# ~> /Users/glenegbert/Dropbox/ruby_projects/sales_engine-1/lib/customer_repository.rb:36:in `<main>'

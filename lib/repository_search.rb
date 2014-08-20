@@ -1,23 +1,33 @@
 require_relative 'repository_parser'
 
-class RepositorySearch
+module RepositorySearch
 
-  attr_reader :repository_objects
+  attr_reader :objects
 
   def initialize(filename)
-    @repository_objects = load(filename)
+    @objects = load(filename)
+  end
+
+  def inspect
+    "<#Repositories>"
   end
 
   def all
-    @repository_objects
+    @objects
   end
 
   def random
-    @repository_objects.shuffle.sample
+    @objects.shuffle.sample
   end
 
-  def find_by(attribute, *args)
+  def find_by(method, *args)
+    method_name = method.to_s.split("find_by_").last
+    @objects.find { |object| object.send(method_name) == args.first }
+  end
 
+  def find_all_by(method, *args)
+    method_name = method.to_s.split("find_all_by_").last
+    @objects.select { |object| object.send(method_name) == args.first }
   end
 
 end
