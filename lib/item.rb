@@ -5,7 +5,7 @@ class Item
   def initialize(data)
     @id =                          data[:id]
     @name =                        data[:name]
-    @description =                data[:description]
+    @description =                 data[:description]
     @unit_price =                  data[:unit_price]
     @merchant_id =                 data[:merchant_id]
     @created_at =                  data[:created_at]

@@ -14,9 +14,13 @@ synch and finish Repos
 start on 2nd tier
 
 Before Wed work time
-Glen - 2nd tier assign
+Jessica
+- Finish Customer Repo
+- Start on Merchant Relationships
 
-Jessica - second tier
+Glen
+- Finish and Synch other Repos
+- Start on Invoice Relationships
 
 Wed. Work Time
 Relationships
