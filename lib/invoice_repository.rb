@@ -62,5 +62,8 @@ class InvoiceRepository
     find_all_by('customer_id', value)
   end
 
+  def find_all_by_merchant_id(value)
+    find_all_by('merchant_id', value)
+  end 
 
 end

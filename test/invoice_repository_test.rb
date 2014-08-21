@@ -41,6 +41,9 @@ class InvoiceRepositoryTest < Minitest::Test
     assert 25, result.count
   end
 
-
+  def test_it_can_find_all_by_merchant_id
+    result = repository.find_all_by_merchant_id('2')
+    assert 10, result.count
+  end
 
 end
