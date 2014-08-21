@@ -6,7 +6,8 @@ class Transaction
               :credit_card_expiration_date,
               :result,
               :created_at,
-              :updated_at
+              :updated_at,
+              :transaction_repository
 
   def initialize(data, repository)
     @id                          = data[:id]
@@ -18,4 +19,10 @@ class Transaction
     @updated_at                  = data[:updated_at]
     @transaction_repository      = repository
   end
+
+  # invoice returns an instance of Invoice associated with this object
+  def invoice
+    transaction_repository.find_invoice_by_transaction_id(id)
+  end
+
 end

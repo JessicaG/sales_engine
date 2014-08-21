@@ -2,21 +2,12 @@ require_relative 'repository_parser'
 
 class TransactionRepository
 
-  attr_reader :transactions
+  attr_reader :transactions, :sales_engine
 
   def initialize(engine,transaction_attributes=[])
     @sales_engine    = engine
     @transactions    = transaction_attributes.collect { |attributes| Transaction.new(attributes, self) }
   end
-  # def initialize(file = './test/fixtures/transactions.csv', engine)
-  #   @transactions = create_transactions_from(file)
-  #   @sales_engine = engine
-  # end
-  #
-  # def create_transactions_from(file)
-  #   csv = RepositoryParser.load(file, class_name: Transaction)
-  #   csv.collect { |row| Transaction.new(row, self) }
-  # end
 
   def inspect
      "#<#{self.class} #{@transactions.size} rows>"
@@ -52,6 +43,10 @@ class TransactionRepository
 
   def find_all_by_result(value)
     find_all_by('result',value)
+  end
+
+  def find_invoice_by_transaction_id(id)
+    sales_engine.find_invoice_by_transaction_id(id)
   end
 
 end

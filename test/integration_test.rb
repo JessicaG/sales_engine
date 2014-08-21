@@ -14,9 +14,7 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_items = merchant.items
-
     assert associated_items.all? {|item| item.merchant_id == merchant.id}
-
   end
 
   def test_random_merchant_can_find_associated_invoices
@@ -25,7 +23,6 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_invoices = merchant.invoices
-
     assert associated_invoices.all? {|invoice| invoice.merchant_id == merchant.id}
   end
 
@@ -35,8 +32,50 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_transactions = invoice.transactions
-
     assert associated_transactions.all? {|transaction| transaction.invoice_id == invoice.id}
-
   end
+
+  def test_transcation_returns_associated_invoices
+    skip
+    transaction = engine.transaction_repository.find_by('invoice_id', '7')
+    invoice = transaction.invoice
+    assert ['6'], transaction.invoice
+    # assert ['6'], transaction.invoice.map(&:invoice_id)
+  end
+
+  def test_customer_returns_associated_invoices
+    skip
+    customer = engine.customer_repository.find_by_first_name('Joey')
+    invoices = customer.invoices
+    assert ['1', '2', '3', '4', '5', '6', '7', '8'], customer.invoices.map.count(&:customer_id)
+  end
+
+  def test_invoice_returns_associated_invoice_items
+    skip
+    item = engine.item_repository.find_by('id', '10')
+    invoice_items = item.invoice_items
+    assert ['4', '6', '8'], item.invoice_items.map(&:id)
+  end
+
+  def test_merchant_returns_associated_items
+    skip
+    item = engine.item_repository.find_by('merchant_id', '1')
+    merchant = item.merchant
+    assert ['1'], item.merchant.id
+  end
+
+  def test_invoice_return_associated_invoice_items
+    skip
+    invoice_items = engine.invoice_item_repository.find_by('invoice_id', '2')
+    invoice = invoice_items.invoice
+    assert ['2'], invoice_items.invoice
+  end
+
+  def test_items_return_associated_invoice_items
+    skip
+    invoice_items = engine.invoice_item_repository.find_by('item_id', '10')
+    item = invoice_items.item
+    assert ['pooper scooper'], invoice_items.item.name
+  end
+
 end

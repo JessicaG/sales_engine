@@ -6,18 +6,8 @@ class ItemRepository
 
   def initialize(engine, item_attributes=[])
     @sales_engine = engine
-    @items   = item_attributes.collect { |attributes| Item.new(attributes, self) }
+    @items        = item_attributes.collect { |attributes| Item.new(attributes, self) }
   end
-
-  # def initialize(file = './test/fixtures/items.csv', engine)
-  #   @items = create_items_from(file)
-  #   @sales_engine = engine
-  # end
-  #
-  # def create_items_from(file)
-  #   csv = RepositoryParser.load(file, class_name: Item)
-  #   csv.collect { |row| Item.new(row, self) }
-  # end
 
   def inspect
      "#<#{self.class} #{@items.size} rows>"
@@ -49,6 +39,14 @@ class ItemRepository
 
   def find_all_by_merchant_id(value)
     find_all_by('merchant_id',value)
+  end
+
+  def find_invoice_items_by_item_id(id)
+    sales_engine.find_invoice_items_by_item_id(id)
+  end
+
+  def find_merchants_by_item_id(id)
+    sales_engine.find_merchants_by_item_id(id)
   end
 
 end

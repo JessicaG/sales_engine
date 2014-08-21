@@ -57,5 +57,9 @@ class CustomerRepository
     find_all_by('last_name', value)
   end
 
+  def find_invoices_by_customer_id(id)
+    sales_engine.find_invoices_by_customer_id(id)
+  end
+
 
 end
