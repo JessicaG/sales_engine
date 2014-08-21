@@ -87,4 +87,17 @@ class SalesEngine
     item_repository.find_by(id,'item_id')
   end
 
+  def find_invoice_items_by_invoice_id(id)
+    invoice_item_repository.find_all_by('invoice_id',id)
+  end
+
+  def find_items_by_invoice_id(id)
+    invoice_item_repository.find_all_by('invoice_id',id)
+    invoice_items.map{|invoice_item| item_repository.find_by('id', invoice_item.item_id )}
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    customer_repository.find_by('id', customer_id)
+  end
+
 end
