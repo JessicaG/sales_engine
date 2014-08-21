@@ -6,7 +6,7 @@ class CustomerTest< Minitest::Test
   data = {id: "123", first_name: "456", last_name: "894567",
   created_at: "10:52", updated_at: "11:25"}
 
-  customer = Customer.new(data)
+  customer = Customer.new(data, self)
 
   assert_equal "123",     customer.id
   assert_equal "456",     customer.first_name

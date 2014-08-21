@@ -13,18 +13,14 @@ class SalesEngine
               :invoice_item_repository,
               :item_repository,
               :transaction_repository
-              # :csv_dir
-  # def initialize(csv_dir='./test/fixtures')
-  #   @csv_dir = csv_dir
-  # end
 
   def startup
     @merchant_repository      = MerchantRepository.new(self)
-    @customer_repository      = CustomerRepository.new
-    @invoice_repository       = InvoiceRepository.new
-    @invoice_item_repository  = InvoiceItemRepository.new
+    @customer_repository      = CustomerRepository.new(self)
+    @invoice_repository       = InvoiceRepository.new(self)
+    @invoice_item_repository  = InvoiceItemRepository.new(self)
     @item_repository          = ItemRepository.new(self)
-    @transaction_repository   = TransactionRepository.new
+    @transaction_repository   = TransactionRepository.new(self)
   end
 
   def find_items_by_merchant_id(id)

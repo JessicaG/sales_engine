@@ -4,8 +4,14 @@ class TransactionRepository
 
   attr_reader :transactions
 
-  def initialize(file = './data/transactions.csv')
-    @transactions = RepositoryParser.load(file, class_name: Transaction)
+  def initialize(file = './test/fixtures/transactions.csv', engine)
+    @transactions = create_transactions_from(file)
+    @sales_engine = engine
+  end
+
+  def create_transactions_from(file)
+    csv = RepositoryParser.load(file, class_name: Transaction)
+    csv.collect { |row| Transaction.new(row, self) }
   end
 
   def inspect

@@ -7,7 +7,7 @@ class ItemTest< Minitest::Test
   unit_price: "$1.57", merchant_id: "success",
   created_at: "10:52", updated_at: "11:25"}
 
-  item = Item.new(data)
+  item = Item.new(data, self)
 
   assert_equal "123",     item.id
   assert_equal "toy",     item.name

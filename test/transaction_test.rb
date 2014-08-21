@@ -7,7 +7,7 @@ class TransactionTest< Minitest::Test
   credit_card_expiration_date: "05/07", result: "success", created_at:
   "10:52", updated_at: "11:25"}
 
-  transaction = Transaction.new(data)
+  transaction = Transaction.new(data, self)
 
   assert_equal "123",     transaction.id
   assert_equal "456",     transaction.invoice_id

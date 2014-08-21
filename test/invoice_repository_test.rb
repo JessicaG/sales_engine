@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class InvoiceRepositoryTest < Minitest::Test
 
   def repository
-    repository = InvoiceRepository.new('./test/fixtures/invoices.csv')
+    repository = InvoiceRepository.new('./test/fixtures/invoices.csv', "self")
   end
 
   def test_it_can_load_other_items

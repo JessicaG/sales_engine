@@ -11,6 +11,8 @@ class RepositoryParserTest < Minitest::Test
 
   def test_it_load_the_correct_information
     items = RepositoryParser.load('test/fixtures/invoice_items.csv', class_name: DummyClass)
+    items = items.collect { |row| DummyClass.new(row) }
+
     assert_equal "1", items[0].content[:id]
     assert_instance_of DummyClass, items[0]
   end

@@ -4,8 +4,14 @@ require_relative 'repository_parser'
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(file = './data/invoices.csv')
-    @invoices = RepositoryParser.load(file, class_name: Invoice)
+  def initialize(file = './test/fixtures/invoices.csv', engine)
+    @invoices = create_invoices_from(file)
+    @sales_engine = engine
+  end
+
+  def create_invoices_from(file)
+    csv = RepositoryParser.load(file, class_name: Invoice)
+    csv.collect { |row| Invoice.new(row, self) }
   end
 
   def inspect
@@ -44,12 +50,17 @@ class InvoiceRepository
     find_by('id', value)
   end
 
-  def find_all_by_customer_id(value)
-    find_all_by('customer_id', value)
+  def find_all_by_invoice_id(value)
+    find_all_by('invoice_id', value)
   end
 
   def find_all_by_status(value)
     find_all_by('status', value)
   end
+
+  def find_all_by_customer_id(value)
+    find_all_by('customer_id', value)
+  end
+
 
 end

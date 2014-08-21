@@ -4,13 +4,14 @@ require_relative 'repository_parser'
 class CustomerRepository
   attr_reader :customers
 
-  # def initialize(engine, csv_dir)
-  #   @engine                = engine
-  #   @customers             = RepositoryParser.load('./data/customers.csv', class_name: Customer)
-  # end
+  def initialize(file = './test/fixtures/customers.csv', engine)
+    @customers = create_customers_from(file)
+    @sales_engine = engine
+  end
 
-  def initialize(file = './data/customers.csv')
-    @customers = RepositoryParser.load(file, class_name: Customer)
+  def create_customers_from(file)
+    csv = RepositoryParser.load(file, class_name: Customer)
+    csv.collect { |row| Customer.new(row, self) }
   end
 
   def inspect

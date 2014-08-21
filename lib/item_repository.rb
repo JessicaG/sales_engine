@@ -9,7 +9,6 @@ class ItemRepository
     @sales_engine = engine
   end
 
-  #
   def create_items_from(file)
     csv = RepositoryParser.load(file, class_name: Item)
     csv.collect { |row| Item.new(row, self) }

@@ -6,7 +6,7 @@ class InvoiceItemTest< Minitest::Test
   data = {id: "123", item_id: "456", invoice_id: "894567", quantity:
   "10", unit_price: "$1.50",  created_at: "10:52", updated_at: "11:25"}
 
-  invoice_items = Invoice_item.new(data)
+  invoice_items = Invoice_item.new(data, self)
 
   assert_equal "123",     invoice_items.id
   assert_equal "456",     invoice_items.item_id

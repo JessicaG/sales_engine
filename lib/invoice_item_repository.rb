@@ -4,8 +4,14 @@ class InvoiceItemRepository
 
   attr_reader :invoice_items
 
-  def initialize(file = './data/invoice_items.csv')
-    @invoice_items = RepositoryParser.load(file, class_name: Invoice_item)
+  def initialize(file = './test/fixtures/invoice_items.csv', engine)
+    @invoice_items = create_invoice_items_from(file)
+    @sales_engine = engine
+  end
+
+  def create_invoice_items_from(file)
+    csv = RepositoryParser.load(file, class_name: Invoice_item)
+    csv.collect { |row| Invoice_item.new(row, self) }
   end
 
   def inspect
