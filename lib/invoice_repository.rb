@@ -64,6 +64,10 @@ class InvoiceRepository
 
   def find_all_by_merchant_id(value)
     find_all_by('merchant_id', value)
-  end 
+  end
+
+  def find_transactions_by_invoice_id(id)
+    sales_engine.find_transactions_by_invoice_id(id)
+  end
 
 end

@@ -5,7 +5,9 @@ class Invoice
               :merchant_id,
               :created_at,
               :updated_at,
-              :status
+              :status,
+              :invoice_repository
+
 
   def initialize(data, repository)
     @id =                          data[:id]
@@ -15,5 +17,9 @@ class Invoice
     @updated_at =                  data[:updated_at]
     @status =                      data[:status]
     @invoice_repository =          repository
+  end
+
+  def transactions
+    @invoice_repository.find_transactions_by_invoice_id(id)
   end
 end
