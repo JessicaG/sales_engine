@@ -30,7 +30,6 @@ class SalesEngine
   end
 
   def startup
-    # rows = RepositoryParser.load(@directory + '/merchants.csv')
     load_repositories
     @merchant_repository      = MerchantRepository.new(self, @merchant_rows)
     @customer_repository      = CustomerRepository.new(self, @customer_rows)
@@ -50,6 +49,19 @@ class SalesEngine
 
   def find_transactions_by_invoice_id(id)
     transaction_repository.find_all_by('invoice_id',id)
+  end
+
+  def find_invoice_items_by_invoice_id(id)
+    invoice_item_repository.find_all_by('invoice_id',id)
+  end
+
+  def find_items_by_invoice_id(id)
+    invoice_item_repository.find_all_by('invoice_id',id)
+    invoice_items.map{|invoice_item| item_repository.find_by('id', invoice_item.item_id )}
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    customer_repository.find_by('id', customer_id)
   end
 
 end

@@ -19,7 +19,7 @@ class IntegrationTest< Minitest::Test
 
   end
 
-  def test_random_merchant_can_find_associated_invoices
+  def test_merchant_can_find_associated_invoices
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == "1"
     end
@@ -29,7 +29,7 @@ class IntegrationTest< Minitest::Test
     assert associated_invoices.all? {|invoice| invoice.merchant_id == merchant.id}
   end
 
-  def test_random_invoice_can_find_associated_transactions
+  def test_invoice_can_find_associated_transactions
     invoice = engine.invoice_repository.invoices.detect do |invoice|
       invoice.id == "1"
     end
@@ -38,5 +38,42 @@ class IntegrationTest< Minitest::Test
 
     assert associated_transactions.all? {|transaction| transaction.invoice_id == invoice.id}
 
+  end
+
+  def test_invoice_can_find_associated_invoice_items
+    invoice = engine.invoice_repository.invoices.detect do |invoice|
+      invoice.id == "1"
+    end
+
+    associated_invoice_items = invoice.invoice_items
+
+    assert associated_invoice_items.all? {|invoice_item| invoice_item.invoice_id == invoice.id}
+  end
+
+  def test_invoice_can_find_associated_items
+    skip
+    invoice = engine.invoice_repository.invoices.detect do |invoice|
+      invoice.id == "1"
+    end
+
+    associated_invoice_items = invoice.invoice_items
+    associated_items = invoice.items
+
+    associated_invoice_items_item_ids = associated_invoice_items.map do |invoice_item| invoice_item.item_id
+      end
+    p associated_invoice_items_item_ids
+    p associated_items
+
+    assert associated_invoice_items_item_ids.include?(associated_items.sample.id)
+  end
+
+  def test_invoice_can_find_an_instance_of_customer_associated_with_itself
+    invoice = engine.invoice_repository.invoices.detect do |invoice|
+      invoice.customer_id == "1"
+    end
+
+    associated_customer = invoice.customer
+
+    assert associated_customer.id == "1"
   end
 end

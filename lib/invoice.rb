@@ -22,4 +22,16 @@ class Invoice
   def transactions
     @invoice_repository.find_transactions_by_invoice_id(id)
   end
+
+  def invoice_items
+    @invoice_repository.find_invoice_items_by_invoice_id(id)
+  end
+
+  def items
+    @invoice_repository.find_items_by_invoice_id(id)
+  end
+
+  def customer
+    @invoice_repository.find_customer_by_customer_id(customer_id)
+  end
 end
