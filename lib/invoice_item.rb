@@ -1,4 +1,4 @@
-class Invoice_item
+class InvoiceItem
 
   attr_reader :id,
               :item_id,
@@ -16,6 +16,6 @@ class Invoice_item
     @unit_price =                  data[:unit_price]
     @created_at =                  data[:created_at]
     @updated_at =                  data[:updated_at]
-    @invoice_item_repository =     repository                  
+    @invoice_item_repository =     repository
   end
 end

@@ -8,30 +8,35 @@ class IntegrationTest< Minitest::Test
     engine.startup
   end
 
-  def test_random_merchant_can_find_associated_item_instances
-    merchant = engine.merchant_repository.detect {|merchant| merchant.id = 1}
+  def test_merchant_can_find_associated_item_instances
+    merchant = engine.merchant_repository.merchants.detect do |merchant|
+      merchant.id == "1"
+    end
 
     associated_items = merchant.items
 
-    assert associated_items.all? {|item| item.merchant_id == random_merchant.id}
+    assert associated_items.all? {|item| item.merchant_id == merchant.id}
 
   end
 
   def test_random_merchant_can_find_associated_invoices
-    random_merchant = engine.merchant_repository.random
+    merchant = engine.merchant_repository.merchants.detect do |merchant|
+      merchant.id == "1"
+    end
 
-    associated_invoices = random_merchant.invoices
+    associated_invoices = merchant.invoices
 
-    assert associated_invoices.all? {|invoice| invoice.merchant_id == random_merchant.id}
+    assert associated_invoices.all? {|invoice| invoice.merchant_id == merchant.id}
   end
 
   def test_random_invoice_can_find_associated_transactions
-    skip
-    random_invoice = engine.invoice_repository.random
+    invoice = engine.invoice_repository.invoices.detect do |invoice|
+      invoice.id == "1"
+    end
 
-    associated_transactions = random_invoice.transactions
+    associated_transactions = invoice.transactions
 
-    assert associated_transactions.all? {|transaction| transaction.invoice_id == random_transaction.id}
+    assert associated_transactions.all? {|transaction| transaction.invoice_id == invoice.id}
 
   end
 end

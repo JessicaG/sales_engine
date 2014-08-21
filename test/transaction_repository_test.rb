@@ -3,7 +3,8 @@ require_relative 'test_helper'
 class TransactionRepositoryTest < Minitest::Test
 
   def transaction_repository
-    transaction_repository = TransactionRepository.new('./test/fixtures/transactions.csv', "self")
+    rows = RepositoryParser.load('./test/fixtures/transactions.csv')
+    transaction_repository = TransactionRepository.new('engine',rows)
   end
 
   def test_it_can_load_a_repository

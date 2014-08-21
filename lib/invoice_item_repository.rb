@@ -1,17 +1,12 @@
-require_relative 'repository_parser'
+require_relative 'invoice_item'
 
 class InvoiceItemRepository
 
-  attr_reader :invoice_items
+  attr_reader :invoice_items, :sales_engine
 
-  def initialize(file = './test/fixtures/invoice_items.csv', engine)
-    @invoice_items = create_invoice_items_from(file)
-    @sales_engine = engine
-  end
-
-  def create_invoice_items_from(file)
-    csv = RepositoryParser.load(file, class_name: Invoice_item)
-    csv.collect { |row| Invoice_item.new(row, self) }
+  def initialize(engine, invoice_item_attributes=[])
+    @sales_engine  = engine
+    @invoice_items = invoice_item_attributes.collect { |attributes| InvoiceItem.new(attributes, self) }
   end
 
   def inspect

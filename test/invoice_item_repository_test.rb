@@ -1,8 +1,10 @@
 require_relative 'test_helper'
 
 class InvoiceItemRepositoryTest < Minitest::Test
+
   def invoice_item_repository
-    invoice_item_repository = InvoiceItemRepository.new('./test/fixtures/invoice_items.csv', "self")
+    rows = RepositoryParser.load('./test/fixtures/invoice_items.csv')
+    invoice_item_repository = InvoiceItemRepository.new("engine",rows)
   end
 
   def test_it_can_load_a_repository

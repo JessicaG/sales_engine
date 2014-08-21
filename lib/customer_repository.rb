@@ -2,16 +2,11 @@ require_relative 'customer'
 require_relative 'repository_parser'
 
 class CustomerRepository
-  attr_reader :customers
+  attr_reader :customers, :sales_engine
 
-  def initialize(file = './test/fixtures/customers.csv', engine)
-    @customers = create_customers_from(file)
+  def initialize(engine, customer_attributes=[])
     @sales_engine = engine
-  end
-
-  def create_customers_from(file)
-    csv = RepositoryParser.load(file, class_name: Customer)
-    csv.collect { |row| Customer.new(row, self) }
+    @customers    = customer_attributes.collect { |attributes| Customer.new(attributes, self) }
   end
 
   def inspect

@@ -3,7 +3,8 @@ require_relative 'test_helper'
 class MerchantRepositoryTest < Minitest::Test
 
 def merchant_repository
-  merchant_repository = MerchantRepository.new('./test/fixtures/merchants.csv')
+  rows = RepositoryParser.load('./test/fixtures/merchants.csv')
+  merchant_repository = MerchantRepository.new("engine",rows)
 end
 
 def test_it_can_load_a_repository

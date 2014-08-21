@@ -4,7 +4,8 @@ require 'csv'
 class CustomerRepositoryTest < Minitest::Test
 
   def repository
-    repository = CustomerRepository.new('./test/fixtures/customers.csv')
+    rows = RepositoryParser.load('./test/fixtures/customers.csv')
+    repository = CustomerRepository.new("engine",rows)
   end
 
   def test_it_can_load_items
@@ -12,10 +13,8 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_array_of_customers
-    repository = CustomerRepository.new('./test/fixtures/customers.csv').all
-
-    assert repository.is_a?(Array)
-    assert repository.first.is_a?(Customer)
+    assert repository.customers.is_a?(Array)
+    assert repository.customers.first.is_a?(Customer)
   end
 
   def test_it_can_count_customers

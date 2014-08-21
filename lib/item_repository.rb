@@ -2,17 +2,22 @@ require_relative 'repository_parser'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_reader :items, :sales_engine
 
-  def initialize(file = './test/fixtures/items.csv', engine)
-    @items = create_items_from(file)
+  def initialize(engine, item_attributes=[])
     @sales_engine = engine
+    @items   = item_attributes.collect { |attributes| Item.new(attributes, self) }
   end
 
-  def create_items_from(file)
-    csv = RepositoryParser.load(file, class_name: Item)
-    csv.collect { |row| Item.new(row, self) }
-  end
+  # def initialize(file = './test/fixtures/items.csv', engine)
+  #   @items = create_items_from(file)
+  #   @sales_engine = engine
+  # end
+  #
+  # def create_items_from(file)
+  #   csv = RepositoryParser.load(file, class_name: Item)
+  #   csv.collect { |row| Item.new(row, self) }
+  # end
 
   def inspect
      "#<#{self.class} #{@items.size} rows>"

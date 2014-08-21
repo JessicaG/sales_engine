@@ -1,20 +1,25 @@
-require_relative 'repository_parser'
+# require_relative 'repository_parser'
 
 class MerchantRepository
 
   attr_reader :merchants, :sales_engine
+  #
+  # def initialize(file = './test/fixtures/merchants.csv', engine)
+  #   @merchants = create_merchants_from(file)
+  #   @sales_engine = engine
+  # end
 
-  def initialize(file = './test/fixtures/merchants.csv', engine)
-    @merchants = create_merchants_from(file)
+  def initialize(engine, merchants_attributes=[])
     @sales_engine = engine
+    @merchants    = merchants_attributes.collect { |attributes| Merchant.new(attributes, self) }
   end
 
-  #
-  def create_merchants_from(file)
-    csv = RepositoryParser.load(file, class_name: Merchant)
-    csv.collect { |row| Merchant.new(row, self) }
-  end
-  #
+  # #
+  # def create_merchants_from(file)
+  #   csv = RepositoryParser.load(file, class_name: Merchant)
+  #   csv.collect { |row| Merchant.new(row, self) }
+  # end
+  # #
 
   def inspect
      "#<#{self.class} #{@merchants.size} rows>"
