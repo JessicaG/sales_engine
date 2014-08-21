@@ -4,8 +4,15 @@ class ItemRepository
 
   attr_reader :items
 
-  def initialize(file = './data/items.csv')
-    @items = RepositoryParser.load(file, class_name: Item)
+  def initialize(file = './test/fixtures/items.csv', engine)
+    @items = create_items_from(file)
+    @sales_engine = engine
+  end
+
+  #
+  def create_items_from(file)
+    csv = RepositoryParser.load(file, class_name: Item)
+    csv.collect { |row| Item.new(row, self) }
   end
 
   def inspect

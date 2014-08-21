@@ -23,11 +23,12 @@ class SalesEngine
     @customer_repository      = CustomerRepository.new
     @invoice_repository       = InvoiceRepository.new
     @invoice_item_repository  = InvoiceItemRepository.new
-    @item_repository          = ItemRepository.new
+    @item_repository          = ItemRepository.new(self)
     @transaction_repository   = TransactionRepository.new
   end
 
-  def find_items_by_merchant_id
+  def find_items_by_merchant_id(id)
+    item_repository.find_all_by_merchant_id(id)
   end
 
 end

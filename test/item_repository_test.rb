@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class ItemRepositoryTest < Minitest::Test
 
   def item_repository
-    item_repository = ItemRepository.new('./test/fixtures/items.csv')
+    item_repository = ItemRepository.new('./test/fixtures/items.csv',"engine")
   end
 
   def test_it_can_load_a_repository
