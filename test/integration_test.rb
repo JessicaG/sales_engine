@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'pry'
 
 class IntegrationTest< Minitest::Test
   attr_reader :engine
@@ -84,7 +85,6 @@ class IntegrationTest< Minitest::Test
   end
 
   def test_invoice_can_find_associated_items
-    skip
     invoice = engine.invoice_repository.invoices.detect do |invoice|
       invoice.id == "1"
     end
@@ -92,19 +92,31 @@ class IntegrationTest< Minitest::Test
     associated_invoice_items = invoice.invoice_items
     associated_items = invoice.items
 
-    associated_invoice_items_item_ids = associated_invoice_items.map do |invoice_item| invoice_item.item_id
+    associated_invoice_items_item_ids = associated_invoice_items.map do |invoice_item|
+      invoice_item.item_id
       end
-    p associated_invoice_items_item_ids
-    p associated_items
     assert associated_invoice_items_item_ids.include?(associated_items.sample.id)
   end
 
   def test_invoice_can_find_an_instance_of_customer_associated_with_itself
     invoice = engine.invoice_repository.invoices.detect do |invoice|
       invoice.customer_id == "1"
-    end
+      end
 
     associated_customer = invoice.customer
     assert associated_customer.id == "1"
   end
+
+  def test_invoice_can_find_associated_merchant_by_merchant_id
+      invoice = engine.invoice_repository.invoices.detect do |invoice|
+        invoice.id == "1"
+      end
+
+      associated_merchant = invoice.merchant
+
+      assert associated_merchant.id == invoice.merchant_id
+
+  end
+
+  
 end
