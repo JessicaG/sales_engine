@@ -121,4 +121,6 @@ class IntegrationTest< Minitest::Test
       assert associated_merchant.id == invoice.merchant_id
 
   end
+
+  
 end
