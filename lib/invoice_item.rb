@@ -24,10 +24,10 @@ class InvoiceItem
 # item returns an instance of Item associated with this object
 
   def invoice
-    invoice_item_repository.find_invoice_item_by_invoice_id(id)
+    invoice_item_repository.find_invoice_by_invoice_item_id(id)
   end
 
   def item
-    invoice_item_repository.find_item_by_item_id(id)
+    invoice_item_repository.find_item_by_item_id(item_id)
   end
 end

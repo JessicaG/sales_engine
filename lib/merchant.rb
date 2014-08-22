@@ -28,7 +28,10 @@ class Merchant
     total_revenue = associated_invoice_items.reduce(0) {|sum, n| sum + (n.quantity.to_i * n.unit_price.to_i )}
 
     BigDecimal(total_revenue/100.00, 7)
-    # total_revenue/100
+  end
+
+  def revenue_by_date(date)
+    
   end
 
 

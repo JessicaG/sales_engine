@@ -85,7 +85,7 @@ class SalesEngine
 
   #InvoiceItems: item returns an instance of Item associated with this object
   def find_item_by_item_id(id)
-    item_repository.find_by(id,'item_id')
+    item_repository.find_by('id',id)
   end
 
   def find_invoice_items_by_invoice_id(id)

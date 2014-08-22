@@ -15,6 +15,7 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_items = merchant.items
+    #assert associated_items.count > 0
     assert associated_items.all? {|item| item.merchant_id == merchant.id}
   end
 
@@ -47,6 +48,10 @@ class IntegrationTest< Minitest::Test
     customer = engine.customer_repository.find_by_first_name('Joey')
     invoices = customer.invoices
     assert ['1', '2', '3', '4', '5', '6', '7', '8'], customer.invoices.map.count(&:customer_id)
+    # assert vs assert_equal (I assume this passes even if I set invoices=[])
+    # asking for customer_id, which should all be the same (these are the customer's invoices)
+    #   but presumably the thing we are asserting is the invoice_id (since they are different)
+    # using count instead of map (count will return the number that are true, so 8, not the array of ids)
   end
 
   def test_invoice_returns_associated_invoice_items
@@ -61,18 +66,16 @@ class IntegrationTest< Minitest::Test
     assert ['1'], item.merchant.id
   end
 
-  def test_invoice_return_associated_invoice_items
-    skip
-    invoice_items = engine.invoice_item_repository.find_by('invoice_id', '2')
-    invoice = invoice_items.invoice
-    assert ['2'], invoice_items.invoice
+  def test_invoice_item_return_associated_invoice
+    invoice_item = engine.invoice_item_repository.find_by('item_id', '2')
+    invoice = invoice_item.invoice
+    assert_equal '13', invoice.id
   end
 
-  def test_items_return_associated_invoice_items
-    skip
-    invoice_items = engine.invoice_item_repository.find_by('item_id', '10')
-    item = invoice_items.item
-    assert_equal ['pooper scooper'], invoice_items.item.name
+  def test_invoice_item_returns_associated_item
+    invoice_item = engine.invoice_item_repository.find_by('item_id', '2')
+    item = invoice_item.item
+    assert_equal '2', item.id
   end
 
   def test_invoice_can_find_associated_invoice_items
@@ -118,5 +121,5 @@ class IntegrationTest< Minitest::Test
 
   end
 
-  
+
 end
