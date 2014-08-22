@@ -9,11 +9,16 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_most_revenue_x_returns_the_top_x_merchant_instances_ranked_by_total_revenue
-
-
-      most_revenue(x)
-        merchant_repo.sort_by > thru > invoice_items.unit_price
-      .first(x)
   end
+
+  def test_merchant_can_return_total_revenue_accross_all_transactions
+    merchant = engine.merchant_repository.merchants.detect do |merchant|
+      merchant.id == "1"
+    end
+
+    assert_equal "21067.77", merchant.revenue.to_s('F')
+  end
+
+
 
 end
