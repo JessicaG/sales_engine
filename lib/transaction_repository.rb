@@ -1,5 +1,3 @@
-require_relative 'repository_parser'
-
 class TransactionRepository
 
   attr_reader :transactions, :sales_engine

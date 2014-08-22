@@ -59,27 +59,28 @@ class SalesEngine
 
   #Transaction: invoice returns an instance of Invoice associated with this object
   def find_invoice_by_transaction_id(id)
-    invoice_repository.find_by(id,'invoice_id')
+    # binding.pry
+    transaction_repository.find_all_by('invoice_id', id)
   end
 
   #Customer: invoices returns a collection of Invoice instances associated with this object.
   def find_invoices_by_customer_id(id)
-    invoice_repository.find_all_by(id,'customer_id')
+    invoice_repository.find_all_by('customer_id', id)
   end
 
   #Invoice: invoice_items returns a collection of InvoiceItems associated with this object
   def find_invoice_items_by_item_id(id)
-    invoice_repository.find_all_by(id, 'item_id')
+    invoice_item_repository.find_all_by('item_id', id)
   end
 
   #Invoice: merchant returns an instance of Merchant associated with this object
   def find_merchants_by_item_id(id)
-    merchant_repository.find_by(id, 'item_id')
+    item_repository.find_by('merchant_id', id)
   end
 
   #InvoiceItems: invoice returns an instance of Invoice associated with this object
   def find_invoice_by_invoice_item_id(id)
-    invoice_repository.find_by(id, 'invoice_id')
+    invoice_item_repository.find_by('invoice_id', id)
   end
 
   #InvoiceItems: item returns an instance of Item associated with this object
