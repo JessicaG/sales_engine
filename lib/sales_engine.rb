@@ -92,14 +92,15 @@ class SalesEngine
   end
 
   def find_items_by_invoice_id(id)
-    invoice_items = invoice_item_repository.find_all_by('invoice_id',id)
-    items = invoice_items.map{|invoice_item| item_repository.find_by('id', invoice_item.item_id )}
-    items.each do |item| if item == nil
-       items.delete(item)
-       else
-       item
-       end
-    end
+    items(id).select { |item| item != nil}
+  end
+
+  def items(id)
+    invoice_items(id).map{|invoice_item| item_repository.find_by('id', invoice_item.item_id )}
+  end
+
+  def invoice_items(id)
+    invoice_item_repository.find_all_by('invoice_id', id)
   end
 
   def find_customer_by_customer_id(customer_id)
