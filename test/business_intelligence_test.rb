@@ -9,6 +9,7 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_most_revenue_x_returns_the_top_x_merchant_instances_ranked_by_total_revenue
+  skip
   end
 
   def test_merchant_can_return_total_revenue_accross_all_transactions
@@ -16,16 +17,15 @@ class BusinessIntelligenceTest< Minitest::Test
       merchant.id == "1"
     end
 
-    assert_equal "21067.77", merchant.revenue.to_s('F')
+    assert_equal "29503.3", merchant.revenue.to_s('F')
   end
 
   def test_merchant_can_return_the_total_revenue_for_a_specific_date
-    skip 
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == "1"
     end
 
-    assert_equal "1000.00", merchant.revenue_by_date(2012-03-25)
+    assert_equal "26356.9", merchant.revenue_by_date("2012-03-25").to_s('F')
   end
 
 
