@@ -44,7 +44,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_invoice_items_from_a_specific_invoice
     result = invoice_item_repository.find_all_by_invoice_id('3')
-    assert_equal 8, result.count
+    assert_equal 7, result.count
   end
 
 

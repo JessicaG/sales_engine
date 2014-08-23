@@ -69,7 +69,7 @@ class IntegrationTest< Minitest::Test
   def test_invoice_item_return_associated_invoice
     invoice_item = engine.invoice_item_repository.find_by('item_id', '2')
     invoice = invoice_item.invoice
-    assert_equal '13', invoice.id
+    assert_equal '14', invoice.id
   end
 
   def test_invoice_item_returns_associated_item
