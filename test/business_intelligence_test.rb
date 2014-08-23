@@ -17,7 +17,7 @@ class BusinessIntelligenceTest< Minitest::Test
       merchant.id == "1"
     end
 
-    assert_equal "29503.3", merchant.revenue.to_s('F')
+    assert_equal "24214.17", merchant.revenue.to_s('F')
   end
 
   def test_merchant_can_return_the_total_revenue_for_a_specific_date
@@ -25,7 +25,18 @@ class BusinessIntelligenceTest< Minitest::Test
       merchant.id == "1"
     end
 
-    assert_equal "26356.9", merchant.revenue_by_date("2012-03-25").to_s('F')
+    assert_equal "21067.77", merchant.revenue_by_date("2012-03-25").to_s('F')
+  end
+
+  def test_merchant_returns_the_customer_who_has_conducted_the_most_successful_transactions
+    skip
+    merchant = engine.merchant_repository.merchants.detect do |merchant|
+      merchant.id == "1"
+    end
+
+    favorite_customer = merchant.favorite_customer
+
+
   end
 
 

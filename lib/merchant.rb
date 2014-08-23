@@ -24,7 +24,8 @@ class Merchant
   end
 
   def revenue
-    associated_invoice_items = invoices.map{|invoice| invoice.invoice_items}.reduce(:+)
+    successfully_transacted_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
+    associated_invoice_items = successfully_transacted_invoices.map{|invoice| invoice.invoice_items}.reduce(:+)
     total_revenue = associated_invoice_items.reduce(0) {|sum, n| sum + (n.quantity.to_i * n.unit_price.to_i )}
 
     BigDecimal(total_revenue/100.00, 7)
@@ -32,7 +33,8 @@ class Merchant
 
   def revenue_by_date(date)
     invoices_from_date = invoices.select {|invoice| invoice.created_at[0..9] == date}
-    invoice_items_from_date = invoices_from_date.map{|invoice| invoice.invoice_items}.reduce(:+)
+    successfully_transacted_invoices_by_date = invoices_from_date.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
+    invoice_items_from_date = successfully_transacted_invoices_by_date.map{|invoice| invoice.invoice_items}.reduce(:+)
     total_revenue_for_date = invoice_items_from_date.reduce(0) {|sum, n| sum + (n.quantity.to_i * n.unit_price.to_i )}
 
     BigDecimal(total_revenue_for_date/100.00, 7)
