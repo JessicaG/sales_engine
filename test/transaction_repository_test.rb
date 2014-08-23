@@ -44,6 +44,6 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_transactions_with_a_specified_result
     result = transaction_repository.find_all_by_result('failed')
-    assert_equal 4, result.count
+    assert_equal 5, result.count
   end
 end
