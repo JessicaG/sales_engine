@@ -35,10 +35,29 @@ class BusinessIntelligenceTest< Minitest::Test
     end
 
     favorite_customer = merchant.favorite_customer
-
-
   end
 
+  def test_transactions_can_return_associated_customer_transactions
+    skip
+    customer = engine.customer_repository.find_by('id', 1)
+    assert_equal 3, transactions
+  end
 
+  def test_favorite_merchant_can_return_associated_customer_instances
+    customer = engine.customer_repository.find_by('id', 1)
+    assert_equal 'Shroeder-Jerde', favorite_merchant
+  end
+
+  def test_it_can_return_customers_with_pending_invoices
+    skip
+    merchant = engine.merchant_repository.find_by('id', 10)
+    assert_equal 'Mariah', merchant.customers_with_pending_invoices.first.first_name
+  end
+
+  def test_it_can_return_customer_with_most_successful_transactions_for_merchants
+    skip
+    merchant = engine.merchant_repository.find_by('id', 1)
+    assert_equal 'Joey', merchant.favorite_customer.first.first_name
+  end
 
 end
