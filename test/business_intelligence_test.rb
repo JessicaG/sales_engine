@@ -8,10 +8,6 @@ class BusinessIntelligenceTest< Minitest::Test
     engine.startup
   end
 
-  def test_most_revenue_x_returns_the_top_x_merchant_instances_ranked_by_total_revenue
-  skip
-  end
-
   def test_merchant_can_return_total_revenue_accross_all_transactions
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == "1"
@@ -29,7 +25,6 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_merchant_returns_the_customer_who_has_conducted_the_most_successful_transactions
-    skip
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == "1"
     end
@@ -46,6 +41,16 @@ class BusinessIntelligenceTest< Minitest::Test
   def test_favorite_merchant_can_return_associated_customer_instances
     customer = engine.customer_repository.find_by('id', 1)
     assert_equal 'Shroeder-Jerde', favorite_merchant
+
+    assert_equal "3", merchant.favorite_customer.id
+  end
+
+  def test_merchant_returns_customers_with_pending_invoices
+    merchant = engine.merchant_repository.merchants.detect do |merchant|
+      merchant.id == "1"
+    end
+
+    assert_equal 3, merchant.customers_with_pending_invoices.count
   end
 
   def test_it_can_return_customers_with_pending_invoices
@@ -59,5 +64,6 @@ class BusinessIntelligenceTest< Minitest::Test
     merchant = engine.merchant_repository.find_by('id', 1)
     assert_equal 'Joey', merchant.favorite_customer.first.first_name
   end
+
 
 end
