@@ -24,18 +24,22 @@ class Invoice
   end
 
   def invoice_items
-    @invoice_repository.find_invoice_items_by_invoice_id(id)
+    invoice_repository.find_invoice_items_by_invoice_id(id)
   end
 
   def items
-    @invoice_repository.find_items_by_invoice_id(id)
+    invoice_repository.find_items_by_invoice_id(id)
   end
 
   def customer
-    @invoice_repository.find_customer_by_customer_id(customer_id)
+    invoice_repository.find_customer_by_customer_id(customer_id)
   end
 
   def merchant
-    @invoice_repository.find_merchant_by_merchant_id(merchant_id)
+    invoice_repository.find_merchant_by_merchant_id(merchant_id)
   end
+
+  # def successful_charge?
+  #   transactions.any?(&:successful?)
+  # end
 end

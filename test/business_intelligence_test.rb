@@ -39,6 +39,7 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_favorite_merchant_can_return_associated_customer_instances
+    skip
     customer = engine.customer_repository.find_by('id', 1)
     assert_equal 'Shroeder-Jerde', favorite_merchant
 
