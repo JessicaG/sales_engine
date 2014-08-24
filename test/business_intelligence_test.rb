@@ -32,6 +32,15 @@ class BusinessIntelligenceTest< Minitest::Test
     assert_equal "3", merchant.favorite_customer.id
   end
 
+  def test_merchant_returns_customers_with_pending_invoices
+    merchant = engine.merchant_repository.merchants.detect do |merchant|
+      merchant.id == "1"
+    end
+
+    assert_equal 3, merchant.customers_with_pending_invoices.count
+  end
+
+
 
 
 end

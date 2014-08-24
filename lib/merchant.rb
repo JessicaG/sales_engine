@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'pry'
 
 class Merchant
   attr_reader :id,
@@ -48,5 +49,9 @@ class Merchant
   favorite_customer_invoice.customer
   end
 
+  def customers_with_pending_invoices
+    failing_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"} == false}
+    failing_invoices.map{|invoice| invoice.customer}
+  end
 
 end
