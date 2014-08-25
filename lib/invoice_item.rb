@@ -30,5 +30,11 @@ class InvoiceItem
   def item
     invoice_item_repository.find_item_by_item_id(item_id)
   end
-  
-end
+
+  def total_price
+    unit_price * quantity
+  end
+
+  # def successful?
+  #   invoice.successful_charge?
+  # end

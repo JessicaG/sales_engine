@@ -1,5 +1,4 @@
 require 'bigdecimal'
-require 'pry'
 
 class Merchant
   attr_reader :id,
@@ -11,8 +10,8 @@ class Merchant
   def initialize(data, repository)
     @id                  = data[:id]
     @name                = data[:name]
-    @created_at          = data[:created_at]
-    @updated_at          = data[:updated_at]
+    @created_at          = data[:updated_at]
+    @updated_at          = data[:created_at]
     @merchant_repository = repository
   end
 
@@ -42,11 +41,11 @@ class Merchant
   end
 
   def favorite_customer
-  successful_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
-  customer_count = successful_invoices.map{|s_invoice| successful_invoices.count{|invoice| invoice.customer_id == s_invoice.customer_id}}
-  invoices_and_customer_count = successful_invoices.zip(customer_count)
-  favorite_customer_invoice = invoices_and_customer_count.max_by{|invoice_count| invoice_count[1]}[0]
-  favorite_customer_invoice.customer
+    successful_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
+    customer_count = successful_invoices.map{|s_invoice| successful_invoices.count{|invoice| invoice.customer_id == s_invoice.customer_id}}
+    invoices_and_customer_count = successful_invoices.zip(customer_count)
+    favorite_customer_invoice = invoices_and_customer_count.max_by{|invoice_count| invoice_count[1]}[0]
+    favorite_customer_invoice.customer
   end
 
   def customers_with_pending_invoices
