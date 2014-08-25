@@ -59,8 +59,7 @@ class SalesEngine
 
   #Transaction: invoice returns an instance of Invoice associated with this object
   def find_invoice_by_transaction_id(id)
-    # binding.pry
-    transaction_repository.find_all_by('invoice_id', id)
+    invoice_repository.find_by('id', id)
   end
 
   #Customer: invoices returns a collection of Invoice instances associated with this object.

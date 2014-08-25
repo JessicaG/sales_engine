@@ -29,14 +29,19 @@ class Item
     item_repository.find_merchants_by_item_id(id)
   end
 
-<<<<<<< HEAD
-  def item
+  def best_day
     associated_invoice_items = invoice_items
-    associated_invoice_items.map{|invoice_item| [invoice_item.invoice.created_at, invoice_item.revenue}
+    binding.pry
+    invoice_item_dates_revenues = associated_invoice_items.map{|invoice_item| [invoice_item.invoice.created_at, invoice_item.total_price]}
+    invoice_item_revenues_grouped_by_date = invoice_item_dates_revenues.group_by{|date_revenue| date_revenue[0]}
+    combined_date_revenue_array = invoice_item_revenues_grouped_by_date.each_pair.map{|key, value| [key, value.reduce(0){|sum, ary| sum + ary[1]}]}
+    sorted = combined_date_revenue_array.sort_by{|ary| ary[1]}
+    sorted[-1][0][0..9]
     # find all invoice_items for item
     # map invoices_item to its date and revenue
     # select the date with the highest revenue and return its date
-=======
+  end
+
   def revenue
     unit_price * amount_sold
   end
@@ -45,10 +50,9 @@ class Item
     invoice_items = paid_invoice_items
     invoice_items.collect(&:quantity).reduce(0, :+)
   end
-  
+
   def paid_invoice_items
     invoice_items.find_all(&:successful?)
->>>>>>> d03e1ab51d324bc185d730c6a6b34e9c1e1b36db
   end
 
 end

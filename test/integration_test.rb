@@ -15,7 +15,7 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_items = merchant.items
-    #assert associated_items.count > 0
+    assert associated_items.count > 0
     assert associated_items.all? {|item| item.merchant_id == merchant.id}
   end
 
@@ -25,6 +25,7 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_invoices = merchant.invoices
+    assert associated_invoices.count > 0
     assert associated_invoices.all? {|invoice| invoice.merchant_id == merchant.id}
   end
 
@@ -34,36 +35,29 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_transactions = invoice.transactions
+    assert associated_transactions.count > 0
     assert associated_transactions.all? {|transaction| transaction.invoice_id == invoice.id}
   end
 
-  def test_transcation_returns_associated_invoices
+  def test_transcation_returns_associated_invoice
     transaction = engine.transaction_repository.find_by('invoice_id', '7')
     invoice = transaction.invoice
-    assert_equal ('6'), transaction.id
-    # assert ['6'], transaction.invoice.map(&:invoice_id)
+    assert_equal ('7'), invoice.id
   end
 
   def test_customer_returns_associated_invoices
     customer = engine.customer_repository.find_by_first_name('Joey')
-    invoices = customer.invoices
-    assert ['1', '2', '3', '4', '5', '6', '7', '8'], customer.invoices.map.count(&:customer_id)
-    # assert vs assert_equal (I assume this passes even if I set invoices=[])
-    # asking for customer_id, which should all be the same (these are the customer's invoices)
-    #   but presumably the thing we are asserting is the invoice_id (since they are different)
-    # using count instead of map (count will return the number that are true, so 8, not the array of ids)
+    assert_equal 8, customer.invoices.map.count(&:customer_id)
   end
 
   def test_invoice_returns_associated_invoice_items
-    item = engine.item_repository.find_by('id', '10')
-    invoice_items = item.invoice_items
-    assert ['4', '6', '8'], item.invoice_items.map(&:id)
+    item = engine.item_repository.find_by('id', '1')
+    assert_equal 3, item.invoice_items.count
   end
 
-  def test_merchant_returns_associated_items
+  def test_item_returns_associated_merchant
     item = engine.item_repository.find_by('merchant_id', '1')
-    merchant = item.merchant
-    assert ['1'], item.merchant.id
+    assert_equal '1', item.merchant.id
   end
 
   def test_invoice_item_return_associated_invoice
@@ -84,6 +78,7 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_invoice_items = invoice.invoice_items
+    assert associated_invoice_items.count > 0 
     assert associated_invoice_items.all? {|invoice_item| invoice_item.invoice_id == invoice.id}
   end
 

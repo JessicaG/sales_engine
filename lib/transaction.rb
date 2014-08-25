@@ -22,7 +22,7 @@ class Transaction
 
   # invoice returns an instance of Invoice associated with this object
   def invoice
-    transaction_repository.find_invoice_by_transaction_id(id)
+    transaction_repository.find_invoice_by_transaction_id(invoice_id)
   end
 
 end

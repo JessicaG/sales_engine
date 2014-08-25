@@ -32,9 +32,10 @@ class InvoiceItem
   end
 
   def total_price
-    unit_price * quantity
+    unit_price.to_i * quantity.to_i
   end
 
   # def successful?
   #   invoice.successful_charge?
   # end
+end
