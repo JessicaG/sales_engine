@@ -56,12 +56,11 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_item_returns_the_date_with_the_most_sales_for_it_using_invoice_date
-      skip
       item = engine.item_repository.items.detect do |item|
         item.id == "1"
       end
 
-      assert_equal "2012-03-27", item.best_day
+      assert_equal "2012-03-10", item.best_day
   end
 
   def test_it_can_return_customers_with_pending_invoices

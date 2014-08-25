@@ -60,10 +60,10 @@ class IntegrationTest< Minitest::Test
     assert_equal '1', item.merchant.id
   end
 
-  def test_invoice_item_return_associated_invoice
-    invoice_item = engine.invoice_item_repository.find_by('item_id', '2')
+  def test_invoice_item_returns_associated_invoice
+    invoice_item = engine.invoice_item_repository.find_by('id', '16')
     invoice = invoice_item.invoice
-    assert_equal '14', invoice.id
+    assert_equal '3', invoice.id
   end
 
   def test_invoice_item_returns_associated_item
@@ -78,7 +78,7 @@ class IntegrationTest< Minitest::Test
     end
 
     associated_invoice_items = invoice.invoice_items
-    assert associated_invoice_items.count > 0 
+    assert associated_invoice_items.count > 0
     assert associated_invoice_items.all? {|invoice_item| invoice_item.invoice_id == invoice.id}
   end
 
