@@ -23,7 +23,8 @@ class Customer
 
   #transactions returns an array of Transaction instances associated with the customer
   def transactions
-    repository.engine.transaction_repository.find_all_by('invoice_id', customer)
+    # repository.engine.transaction_repository.find_all_by('invoice_id', customer)
+    invoices.flat_map(&:transactions)
   end
   #favorite_merchant returns an instance of Merchant where the customer has conducted the most successful transactions
   def favorite_merchant
