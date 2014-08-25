@@ -40,7 +40,12 @@ class BusinessIntelligenceTest< Minitest::Test
     assert_equal 3, merchant.customers_with_pending_invoices.count
   end
 
+  def test_item_returns_the_date_with_the_most_sales_for_it_using_invoice_date
+      item = engine.item_repository.items.detect do |item|
+        item.id == "1"
 
+      assert_equal "2012-03-25", item.best_day
+  end
 
 
 end

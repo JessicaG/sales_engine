@@ -29,4 +29,12 @@ class Item
     item_repository.find_merchants_by_item_id(id)
   end
 
+  def item
+    associated_invoice_items = invoice_items
+    associated_invoice_items.map{|invoice_item| [invoice_item.invoice.created_at, invoice_item.revenue}
+    # find all invoice_items for item
+    # map invoices_item to its date and revenue
+    # select the date with the highest revenue and return its date
+  end
+
 end
