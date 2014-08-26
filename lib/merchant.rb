@@ -37,9 +37,14 @@ class Merchant
     BigDecimal(total_revenue_for_date/100.00, 7)
   end
 
+  def customers
+    customers = invoices.map(&:customer)
+  end
+
   def favorite_customer
-    customer_count = successful_invoices(invoices).map{|s_invoice| successful_invoices(invoices).count{|invoice| invoice.customer_id == s_invoice.customer_id}}
-    invoices_and_customer_count = successful_invoices(invoices).zip(customer_count)
+    invoices = successful_invoices(self.invoices)
+    customer_count = invoices.map{|s_invoice| invoices.count{|invoice| invoice.customer_id == s_invoice.customer_id}}
+    invoices_and_customer_count = invoices.zip(customer_count)
     favorite_customer_invoice = invoices_and_customer_count.max_by{|invoice_count| invoice_count[1]}[0]
     favorite_customer_invoice.customer
   end
