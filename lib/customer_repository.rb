@@ -1,5 +1,5 @@
 require_relative 'customer'
-require_relative 'repository_parser'
+# require_relative 'repository_parser'
 
 class CustomerRepository
   attr_reader :customers, :sales_engine
