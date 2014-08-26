@@ -1,5 +1,5 @@
 require_relative 'invoice'
-require_relative 'repository_parser'
+# require_relative 'repository_parser'
 
 class InvoiceRepository
   attr_reader :invoices, :sales_engine
