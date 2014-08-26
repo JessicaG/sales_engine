@@ -1,3 +1,5 @@
+# require 'pry'
+
 class Customer
 
   attr_reader :id,
@@ -26,20 +28,29 @@ class Customer
     # repository.engine.transaction_repository.find_all_by('invoice_id', customer)
     invoices.flat_map(&:transactions)
   end
-  #favorite_merchant returns an instance of Merchant where the customer has conducted the most successful transactions
+    #favorite_merchant returns an instance of Merchant where the customer has conducted the most successful transactions
+
   def favorite_merchant
-    repository.engine.merchant_repository.find_by_id(top_merchant)
+    # repository.engine.merchant_repository.find_by_id(top_merchant)
+      merchant_count = successful_invoices.map{|s_invoice| successful_invoices.count{|invoice| invoice.merchant_id == s_invoice.merchant_id}}
+      invoices_and_merchant_count = successful_invoices.zip(merchant_count)
+      favorite_invoice = invoices_and_merchant_count.max_by{|invoice_count| invoice_count[1]}[0]
+      favorite_invoice.merchant
   end
 
-  def merchant_count
-    paid_invoices.each_with_object(Hash.new(0))do |invoice, merchant_counts|
-    merchant_counts[invoice.merchant_id] +=1
-    end
+  def successful_invoices
+    invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
   end
 
-  def top_merchant
-    merchant_count.max_by { |_, count| count }[0]
-  end
+  # def merchant_count
+  #   paid_invoices.each_with_object(Hash.new(0))do |invoice, merchant_counts|
+  #   merchant_counts[invoice.merchant_id] +=1
+  #   end
+  # end
+  #
+  # def top_merchant
+  #   merchant_count.max_by { |_, count| count }[0]
+  # end
 
   def most_items(value)
     all.sort_by{ |item| item.quantity_sold }.reverse[0...value]

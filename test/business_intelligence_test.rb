@@ -9,6 +9,8 @@ class BusinessIntelligenceTest< Minitest::Test
     engine.startup
   end
 
+# ***********MERCHANT BUSINESS INTELLIGENCE***********
+
   def test_merchant_can_return_total_revenue_accross_all_transactions
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == "1"
@@ -33,21 +35,6 @@ class BusinessIntelligenceTest< Minitest::Test
     favorite_customer = merchant.favorite_customer
   end
 
-  def test_transactions_can_return_associated_customer_transactions
-    customer = engine.customer_repository.find_by('id', 1)
-    associated_transactions = customer.transactions
-    assert_equal 7, associated_transactions.count
-    assert_equal (1..7).map(&:to_s), associated_transactions.map(&:id)
-  end
-
-  def test_favorite_merchant_can_return_associated_customer_instances
-    skip
-    customer = engine.customer_repository.find_by('id', 1)
-    assert_equal 'Shroeder-Jerde', favorite_merchant
-
-    assert_equal "3", merchant.favorite_customer.id
-  end
-
   def test_merchant_returns_customers_with_pending_invoices
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == "1"
@@ -56,6 +43,7 @@ class BusinessIntelligenceTest< Minitest::Test
     assert_equal 3, merchant.customers_with_pending_invoices.count
   end
 
+# ***********ITEM BUSINESS INTELLIGENCE ******************
   def test_item_returns_the_date_with_the_most_sales_for_it_using_invoice_date
       item = engine.item_repository.items.detect do |item|
         item.id == "1"
@@ -64,17 +52,40 @@ class BusinessIntelligenceTest< Minitest::Test
       assert_equal "2012-03-10", item.best_day
   end
 
-  def test_it_can_return_customers_with_pending_invoices
-    skip
-    merchant = engine.merchant_repository.find_by('id', 10)
-    assert_equal 'Mariah', merchant.customers_with_pending_invoices.first.first_name
+
+# ***********CUSTOMER BUSINESS INTELLIGENCE **************
+
+  def test_customer_can_return_associated_customer_transactions
+    customer = engine.customer_repository.find_by('id', 1)
+    associated_transactions = customer.transactions
+    assert_equal 8, associated_transactions.count
+    assert_equal [1,2,3,4,5,6,7,20].map(&:to_s), associated_transactions.map(&:id)
   end
 
-  def test_it_can_return_customer_with_most_successful_transactions_for_merchants
-    skip
-    merchant = engine.merchant_repository.find_by('id', 1)
-    assert_equal 'Joey', merchant.favorite_customer.first.first_name
+  def test_customer_can_return_the_merchant_where_it_has_the_most_successful_transactions
+    customer = engine.customer_repository.find_by('id', 1)
+    assert_equal "38", customer.favorite_merchant.id
   end
+
+  # def test_favorite_merchant_can_return_associated_customer_instances
+  #   skip
+  #   customer = engine.customer_repository.find_by('id', 1)
+  #   assert_equal 'Shroeder-Jerde', favorite_merchant
+  #
+  #   assert_equal "3", merchant.favorite_customer.id
+  # end
+
+  # def test_it_can_return_customers_with_pending_invoices
+  #   skip
+  #   merchant = engine.merchant_repository.find_by('id', 10)
+  #   assert_equal 'Mariah', merchant.customers_with_pending_invoices.first.first_name
+  # end
+
+  # def test_it_can_return_customer_with_most_successful_transactions_for_merchants
+  #   skip
+  #   merchant = engine.merchant_repository.find_by('id', 1)
+  #   assert_equal 'Joey', merchant.favorite_customer.first.first_name
+  # end
 
 
 end
