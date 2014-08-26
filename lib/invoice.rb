@@ -39,7 +39,7 @@ class Invoice
     invoice_repository.find_merchant_by_merchant_id(merchant_id)
   end
 
-  # def successful_charge?
-  #   transactions.any?(&:successful?)
-  # end
+  def successful_charge?
+    transactions.any?(&:successful?)
+  end
 end

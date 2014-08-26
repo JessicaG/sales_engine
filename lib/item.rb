@@ -30,28 +30,23 @@ class Item
   end
 
   def best_day
-    associated_invoice_items = invoice_items
-    invoice_item_dates_revenues = associated_invoice_items.map{|invoice_item| [invoice_item.invoice.created_at, invoice_item.total_price]}
+    invoice_item_dates_revenues = invoice_items.map{|invoice_item| [invoice_item.invoice.created_at, invoice_item.total_price]}
     invoice_item_revenues_grouped_by_date = invoice_item_dates_revenues.group_by{|date_revenue| date_revenue[0]}
     combined_date_revenue_array = invoice_item_revenues_grouped_by_date.each_pair.map{|key, value| [key, value.reduce(0){|sum, ary| sum + ary[1]}]}
-    sorted = combined_date_revenue_array.sort_by{|ary| ary[1]}
-    sorted[-1][0][0..9]
-    # find all invoice_items for item
-    # map invoices_item to its date and revenue
-    # select the date with the highest revenue and return its date
+    best_date = combined_date_revenue_array.sort_by{|ary| ary[1]}[-1][0][0..9]
   end
 
   def revenue
-    unit_price * amount_sold
+    unit_price.to_i * amount_sold
   end
 
   def amount_sold
     invoice_items = paid_invoice_items
-    invoice_items.collect(&:quantity).reduce(0, :+)
+    invoice_items.collect{|invoice_item| invoice_item.quantity.to_i}.reduce(0, :+)
   end
 
   def paid_invoice_items
-    invoice_items.find_all(&:successful?)
+     invoice_items.find_all(&:successful?)
   end
 
 end

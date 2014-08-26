@@ -9,6 +9,30 @@ class BusinessIntelligenceTest< Minitest::Test
     engine.startup
   end
 
+# **********MERCHANT REPOSITORY BUSINESS INTELLIGENCE*************
+  def test_merchant_repo_can_return_the_top_x_merchants_by_total_revenue
+    merchant_repository = engine.merchant_repository
+
+    assert_equal 8, merchant_repository.most_revenue(8).count
+    assert_equal "18", merchant_repository.most_revenue(3).first.id
+  end
+
+  def test_merchant_repo_can_return_the_top_x_merchants_by_total_number_of_items
+    merchant_repository = engine.merchant_repository
+
+    assert_equal 8, merchant_repository.most_items(8).count
+    assert_equal "1", merchant_repository.most_items(3).first.id
+  end
+
+  def test_merchant_repo_can_return_the_total_revenue_by_date
+    merchant_repository = engine.merchant_repository
+
+    assert_equal "21067.77", merchant_repository.revenue("2012-03-25").to_s('F')
+    # assert_equal 8, merchant_repository.revenue("2012-03-25")
+    # assert_equal "1", merchant_repository.revenue(date)(3).first.id
+  end
+
+
 # ***********MERCHANT BUSINESS INTELLIGENCE***********
 
   def test_merchant_can_return_total_revenue_accross_all_transactions
@@ -65,6 +89,21 @@ class BusinessIntelligenceTest< Minitest::Test
   def test_customer_can_return_the_merchant_where_it_has_the_most_successful_transactions
     customer = engine.customer_repository.find_by('id', 1)
     assert_equal "38", customer.favorite_merchant.id
+  end
+
+  # ****************ITEM REPOSITORY TEST *********************
+  def test_item_repository_can_return_the_top_x_items_ranked_by_revenue
+    item_repository = engine.item_repository
+
+    assert_equal 10, item_repository.most_revenue(10).count
+    assert_equal "1", item_repository.most_revenue(10).first.id
+  end
+
+  def test_item_repository_can_return_the_top_x_items_ranked_by_total_number_sold
+    item_repository = engine.item_repository
+
+    assert_equal 10, item_repository.most_items(10).count
+    assert_equal "1", item_repository.most_items(10).first.id
   end
 
   # def test_favorite_merchant_can_return_associated_customer_instances

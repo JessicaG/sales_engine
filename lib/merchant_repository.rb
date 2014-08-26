@@ -54,7 +54,8 @@ class MerchantRepository
   end
 
   def revenue(date)
-    merchants.map { |merchant| merchant.revenue(date) }.reduce(0, :+)
+    # binding.pry
+    merchants.map { |merchant| merchant.revenue_by_date(date) }.reduce(0, :+)
   end
 
   def most_items(value)
