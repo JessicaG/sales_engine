@@ -81,4 +81,27 @@ class InvoiceRepository
     sales_engine.find_merchant_by_merchant_id(merchant_id)
   end
 
+  def create(options = {})
+    invoice_id = count + 1
+    new_invoice_items(options, invoice_id)
+    invoices << new_invoice(options)
+    
+  end
+
+  def new_invoice(options)
+    data = {id:                     self.count + 1,
+            customer_id:            options[:customer].id,
+            merchant_id:            options[:merchant].id,
+            created_at:             Time.new.utc,
+            updated_at:             Time.new.utc,
+            status:                 options[:status]
+            }
+
+  Invoice.new(data,self)
+  end
+
+  def new_invoice_items(options, invoice_id)
+    sales_engine.new_invoice_items(options, invoice_id)
+  end
+
 end

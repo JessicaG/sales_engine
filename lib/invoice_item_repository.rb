@@ -21,6 +21,10 @@ class InvoiceItemRepository
     invoice_items.sample
   end
 
+  def count
+    invoice_items.count
+  end
+
   def find_by(attribute, value)
     invoice_items.detect do |invoice_item|
       invoice_item.send(attribute) =~ /^#{value}$/i
@@ -55,6 +59,23 @@ class InvoiceItemRepository
 
   def find_item_by_item_id(id)
     sales_engine.find_item_by_item_id(id)
+  end
+
+  def new_invoice_items(options, invoice_id)
+    grouped_items = options[:items].group_by {|item| item}
+    items_and_counts_array = grouped_items.each_pair.map{|key, value| [key, value.count]}
+
+    items_and_counts_array.each do |item_count|
+          data = {id:               count + 1,
+                  item_id:          item_count[0].id,
+                  invoice_id:       invoice_id,
+                  quantity:         item_count[1],
+                  unit_price:       item_count[0].unit_price,
+                  created_at:       Time.new.utc,
+                  updated_at:       Time.new.utc,
+                  }
+            invoice_items << InvoiceItem.new(data, self)
+    end
   end
 
 end

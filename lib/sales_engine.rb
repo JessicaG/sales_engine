@@ -111,4 +111,8 @@ class SalesEngine
     merchant_repository.find_by('id',merchant_id)
   end
 
+  def new_invoice_items(options, invoice_id)
+    invoice_item_repository.new_invoice_items(options, invoice_id)
+  end
+
 end

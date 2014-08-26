@@ -106,6 +106,41 @@ class BusinessIntelligenceTest< Minitest::Test
     assert_equal "1", item_repository.most_items(10).first.id
   end
 
+  # ****************INVOICE REPOSITORY TEST**********************
+  def test_invoice_repository_can_create_invoices_on_the_fly
+    invoice_repository = engine.invoice_repository
+    customer = engine.customer_repository.find_by('id', 1)
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
+    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
+    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
+    item3 = engine.item_repository.items.detect {|item| item.id == "3"}
+
+
+    new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
+                         items: [item1, item2, item3])
+
+    assert_equal 26, new_invoice.last.id
+    assert invoice_repository.invoices.any?{|invoice| invoice.id == 26}
+  end
+
+  def test_invoice_repository_creates_invoice_items_when_creating_invoices
+    invoice_item_repository = engine.invoice_item_repository
+    invoice_repository = engine.invoice_repository
+
+    customer = engine.customer_repository.find_by('id', 1)
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
+    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
+    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
+    item3 = engine.item_repository.items.detect {|item| item.id == "2"}
+
+
+    new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
+                         items: [item1, item2, item3])
+
+    assert_equal 27, invoice_item_repository.count
+    assert invoice_item_repository.invoice_items.any?{|invoice_item| invoice_item.id == 27}
+  end
+
   # def test_favorite_merchant_can_return_associated_customer_instances
   #   skip
   #   customer = engine.customer_repository.find_by('id', 1)
