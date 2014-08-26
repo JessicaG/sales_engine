@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-# require 'pry'
 
 class IntegrationTest< Minitest::Test
   attr_reader :engine
@@ -47,7 +46,7 @@ class IntegrationTest< Minitest::Test
 
   def test_customer_returns_associated_invoices
     customer = engine.customer_repository.find_by_first_name('Joey')
-    assert_equal 8, customer.invoices.map.count(&:customer_id)
+    assert_equal 9, customer.invoices.map.count(&:customer_id)
   end
 
   def test_invoice_returns_associated_invoice_items
