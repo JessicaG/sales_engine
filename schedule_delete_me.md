@@ -1,3 +1,14 @@
+TODOS:
+Spec Harness Failures
+- to_i
+- most revenue and most items, revenue by date
+- optimized
+- Creating Invoices
+-
+
+
+
+
 Tuesday
 Biz logic
 fixing Spec
