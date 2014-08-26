@@ -27,22 +27,22 @@ class SalesEngine
   end
 
   def load_repositories
-   @merchant_rows     = RepositoryParser.load(@directory + '/merchants.csv')
-   @customer_rows     = RepositoryParser.load(@directory + '/customers.csv')
-   @invoice_rows      = RepositoryParser.load(@directory + '/invoices.csv')
-   @invoice_item_rows = RepositoryParser.load(@directory + '/invoice_items.csv')
-   @item_rows         = RepositoryParser.load(@directory + '/items.csv')
-   @transaction_rows  = RepositoryParser.load(@directory + '/transactions.csv')
+   @merchant_rows     ||= RepositoryParser.load(@directory + '/merchants.csv')
+   @customer_rows     ||= RepositoryParser.load(@directory + '/customers.csv')
+   @invoice_rows      ||= RepositoryParser.load(@directory + '/invoices.csv')
+   @invoice_item_rows ||= RepositoryParser.load(@directory + '/invoice_items.csv')
+   @item_rows         ||= RepositoryParser.load(@directory + '/items.csv')
+   @transaction_rows  ||= RepositoryParser.load(@directory + '/transactions.csv')
   end
 
   def startup
     load_repositories
-    @merchant_repository      = MerchantRepository.new(self, merchant_rows)
-    @customer_repository      = CustomerRepository.new(self, customer_rows)
-    @invoice_repository       = InvoiceRepository.new(self, invoice_rows)
-    @invoice_item_repository  = InvoiceItemRepository.new(self, invoice_item_rows)
-    @item_repository          = ItemRepository.new(self, item_rows)
-    @transaction_repository   = TransactionRepository.new(self, transaction_rows)
+    @merchant_repository      ||= MerchantRepository.new(self, merchant_rows)
+    @customer_repository      ||= CustomerRepository.new(self, customer_rows)
+    @invoice_repository       ||= InvoiceRepository.new(self, invoice_rows)
+    @invoice_item_repository  ||= InvoiceItemRepository.new(self, invoice_item_rows)
+    @item_repository          ||= ItemRepository.new(self, item_rows)
+    @transaction_repository   ||= TransactionRepository.new(self, transaction_rows)
   end
 
   def find_items_by_merchant_id(id)

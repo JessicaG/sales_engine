@@ -10,7 +10,7 @@ class Invoice
 
 
   def initialize(data, repository)
-    @id                 = data[:id]
+    @id                 = data[:id].to_i
     @customer_id        = data[:customer_id]
     @merchant_id        = data[:merchant_id]
     @created_at         = data[:created_at]
