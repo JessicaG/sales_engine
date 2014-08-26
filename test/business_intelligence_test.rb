@@ -34,9 +34,10 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_transactions_can_return_associated_customer_transactions
-    skip
     customer = engine.customer_repository.find_by('id', 1)
-    assert_equal 3, transactions
+    associated_transactions = customer.transactions
+    assert_equal 7, associated_transactions.count
+    assert_equal (1..7).map(&:to_s), associated_transactions.map(&:id)
   end
 
   def test_favorite_merchant_can_return_associated_customer_instances
