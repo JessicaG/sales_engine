@@ -27,13 +27,13 @@ class CustomerRepository
 
   def find_by(attribute, value)
     customers.detect do |customer|
-      customer.send(attribute) =~ /^#{value}$/i
+      customer.send(attribute) == value
     end
   end
 
   def find_all_by(attribute, value)
     customers.select do |customer|
-      customer.send(attribute) =~ /^#{value}$/i
+      customer.send(attribute) == value
     end
   end
 

@@ -24,13 +24,13 @@ class ItemRepository
 
   def find_by(attribute, value)
     items.detect do |item|
-      item.send(attribute) =~ /^#{value}$/i
+      item.send(attribute) == value
     end
   end
 
   def find_all_by(attribute, value)
     items.select do |item|
-      item.send(attribute) =~ /^#{value}$/i
+      item.send(attribute) == value
     end
   end
 

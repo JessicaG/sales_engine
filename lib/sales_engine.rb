@@ -6,6 +6,7 @@ require_relative '../lib/customer_repository'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/repository_parser'
+require 'pry'
 
 class SalesEngine
   attr_reader :customer_repository,
@@ -27,12 +28,12 @@ class SalesEngine
   end
 
   def load_repositories
-   @merchant_rows     ||= RepositoryParser.load(@directory + '/merchants.csv')
-   @customer_rows     ||= RepositoryParser.load(@directory + '/customers.csv')
-   @invoice_rows      ||= RepositoryParser.load(@directory + '/invoices.csv')
-   @invoice_item_rows ||= RepositoryParser.load(@directory + '/invoice_items.csv')
-   @item_rows         ||= RepositoryParser.load(@directory + '/items.csv')
-   @transaction_rows  ||= RepositoryParser.load(@directory + '/transactions.csv')
+    @merchant_rows     ||= RepositoryParser.load(@directory + '/merchants.csv')
+    @customer_rows     ||= RepositoryParser.load(@directory + '/customers.csv')
+    @invoice_rows      ||= RepositoryParser.load(@directory + '/invoices.csv')
+    @invoice_item_rows ||= RepositoryParser.load(@directory + '/invoice_items.csv')
+    @item_rows         ||= RepositoryParser.load(@directory + '/items.csv')
+    @transaction_rows  ||= RepositoryParser.load(@directory + '/transactions.csv')
   end
 
   def startup
@@ -54,6 +55,7 @@ class SalesEngine
   end
 
   def find_transactions_by_invoice_id(id)
+    # binding.pry
     transaction_repository.find_all_by('invoice_id',id)
   end
 
@@ -104,6 +106,7 @@ class SalesEngine
   end
 
   def find_customer_by_customer_id(customer_id)
+    # binding.pry
     customer_repository.find_by('id', customer_id)
   end
 

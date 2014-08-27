@@ -1,4 +1,5 @@
 require_relative 'repository_parser'
+require_relative 'sales_engine'
 
 module RepositorySearch
 

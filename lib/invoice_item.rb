@@ -32,7 +32,7 @@ class InvoiceItem
   end
 
   def total_price
-    unit_price.to_i * quantity.to_i
+    unit_price * quantity
   end
 
   def successful?
