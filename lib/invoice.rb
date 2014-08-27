@@ -42,4 +42,8 @@ class Invoice
   def successful_charge?
     transactions.any?(&:successful?)
   end
+
+  def charge(options = {})
+    invoice_repository.new_transacation(options, id)
+  end
 end

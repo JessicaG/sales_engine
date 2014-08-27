@@ -115,4 +115,9 @@ class SalesEngine
     invoice_item_repository.new_invoice_items(options, invoice_id)
   end
 
+  def new_transacation(options, id)
+    transaction_repository.new_transacation(options, id)
+  end
+
+
 end

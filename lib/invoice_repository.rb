@@ -85,11 +85,11 @@ class InvoiceRepository
     invoice_id = count + 1
     new_invoice_items(options, invoice_id)
     invoices << new_invoice(options)
-    
+
   end
 
   def new_invoice(options)
-    data = {id:                     self.count + 1,
+    data = {id:                     count + 1,
             customer_id:            options[:customer].id,
             merchant_id:            options[:merchant].id,
             created_at:             Time.new.utc,
@@ -102,6 +102,10 @@ class InvoiceRepository
 
   def new_invoice_items(options, invoice_id)
     sales_engine.new_invoice_items(options, invoice_id)
+  end
+
+  def new_transacation(options, id)
+    sales_engine.new_transacation(options, id)
   end
 
 end
