@@ -1,5 +1,6 @@
 require_relative 'invoice'
 # require_relative 'repository_parser'
+require 'pry'
 
 class InvoiceRepository
   attr_reader :invoices, :sales_engine
@@ -84,7 +85,9 @@ class InvoiceRepository
   def create(options = {})
     invoice_id = count + 1
     new_invoice_items(options, invoice_id)
-    invoices << new_invoice(options)
+    invoice = new_invoice(options)
+    invoices << invoice
+    invoice
 
   end
 
