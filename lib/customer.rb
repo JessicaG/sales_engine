@@ -1,5 +1,3 @@
-# require 'pry'
-
 class Customer
 
   attr_reader :id,
@@ -18,12 +16,10 @@ class Customer
     @customer_repository = repository
   end
 
-  # invoices returns a collection of Invoice instances associated with this object.
   def invoices
     customer_repository.find_invoices_by_customer_id(id)
   end
 
-  #transactions returns an array of Transaction instances associated with the customer
   def transactions
     invoices.flat_map(&:transactions)
   end
@@ -38,23 +34,4 @@ class Customer
   def successful_invoices
     invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
   end
-
-  # def merchant_count
-  #   paid_invoices.each_with_object(Hash.new(0))do |invoice, merchant_counts|
-  #   merchant_counts[invoice.merchant_id] +=1
-  #   end
-  # end
-  #
-  # def top_merchant
-  #   merchant_count.max_by { |_, count| count }[0]
-  # end
-
-  # def most_items(value)
-  #   all.sort_by{ |item| item.quantity_sold }.reverse[0...value]
-  # end
-  #
-  # def most_revenue(value)
-  #   all.sort_by { |item| item.revenue }.reverse[0...value]
-  # end
-
 end

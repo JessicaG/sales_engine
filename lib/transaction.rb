@@ -20,7 +20,6 @@ class Transaction
     @transaction_repository      = repository
   end
 
-  # invoice returns an instance of Invoice associated with this object
   def invoice
     transaction_repository.find_invoice_by_transaction_id(invoice_id)
   end
@@ -29,7 +28,7 @@ class Transaction
     result == "success"
   end
 
-  def failed? 
+  def failed?
     result == "failed"
   end
 end

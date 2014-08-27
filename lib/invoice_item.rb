@@ -20,9 +20,6 @@ class InvoiceItem
     @invoice_item_repository = repository
   end
 
-# invoice returns an instance of Invoice associated with this object
-# item returns an instance of Item associated with this object
-
   def invoice
     invoice_item_repository.find_invoice_by_invoice_id(invoice_id)
   end
