@@ -75,8 +75,8 @@ class SalesEngine
   end
 
   #Invoice: merchant returns an instance of Merchant associated with this object
-  def find_merchants_by_item_id(id)
-    item_repository.find_by('merchant_id', id)
+  def find_merchant_by_merchant_id(id)
+    merchant_repository.find_by('id', id)
   end
 
   #InvoiceItems: invoice returns an instance of Invoice associated with this object
