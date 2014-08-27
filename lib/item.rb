@@ -39,7 +39,7 @@ class Item
   end
 
   def revenue
-    unit_price.to_i * amount_sold
+    unit_price * amount_sold
   end
 
   def amount_sold

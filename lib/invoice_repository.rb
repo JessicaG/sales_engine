@@ -95,8 +95,8 @@ class InvoiceRepository
     data = {id:                     count + 1,
             customer_id:            options[:customer].id,
             merchant_id:            options[:merchant].id,
-            created_at:             Time.new.utc,
-            updated_at:             Time.new.utc,
+            created_at:             Time.new.utc.to_s,
+            updated_at:             Time.new.utc.to_s,
             status:                 options[:status]
             }
 
