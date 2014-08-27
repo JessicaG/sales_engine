@@ -28,22 +28,22 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_invoice_items_by_id
-    result = invoice_item_repository.find_by_id('1')
+    result = invoice_item_repository.find_by_id(1)
     assert_equal 1, result.id
   end
 
   def test_it_can_find_invoice_items_by_item_id
-    result = invoice_item_repository.find_by_item_id('534')
+    result = invoice_item_repository.find_by_item_id(534)
     assert_equal 534, result.item_id
   end
 
   def test_it_can_find_all_invoice_items_with_a_specific_quantitity
-    result = invoice_item_repository.find_all_by_quantity('5')
+    result = invoice_item_repository.find_all_by_quantity(5)
     assert_equal 5, result.count
   end
 
   def test_it_can_find_all_invoice_items_from_a_specific_invoice
-    result = invoice_item_repository.find_all_by_invoice_id('3')
+    result = invoice_item_repository.find_all_by_invoice_id(3)
     assert_equal 7, result.count
   end
 

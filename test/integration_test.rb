@@ -10,7 +10,7 @@ class IntegrationTest< Minitest::Test
 
   def test_merchant_can_find_associated_item_instances
     merchant = engine.merchant_repository.merchants.detect do |merchant|
-      merchant.id == "1"
+      merchant.id == 1
     end
 
     associated_items = merchant.items
@@ -20,7 +20,7 @@ class IntegrationTest< Minitest::Test
 
   def test_merchant_can_find_associated_invoices
     merchant = engine.merchant_repository.merchants.detect do |merchant|
-      merchant.id == "1"
+      merchant.id == 1
     end
 
     associated_invoices = merchant.invoices
@@ -30,7 +30,7 @@ class IntegrationTest< Minitest::Test
 
   def test_invoice_can_find_associated_transactions
     invoice = engine.invoice_repository.invoices.detect do |invoice|
-      invoice.id == "1"
+      invoice.id == 1
     end
 
     associated_transactions = invoice.transactions
@@ -39,9 +39,9 @@ class IntegrationTest< Minitest::Test
   end
 
   def test_transcation_returns_associated_invoice
-    transaction = engine.transaction_repository.find_by('invoice_id', '7')
+    transaction = engine.transaction_repository.find_by('invoice_id', 7)
     invoice = transaction.invoice
-    assert_equal ('7'), invoice.id
+    assert_equal (7), invoice.id
   end
 
   def test_customer_returns_associated_invoices
@@ -50,30 +50,30 @@ class IntegrationTest< Minitest::Test
   end
 
   def test_invoice_returns_associated_invoice_items
-    item = engine.item_repository.find_by('id', '1')
+    item = engine.item_repository.find_by('id', 1)
     assert_equal 3, item.invoice_items.count
   end
 
   def test_item_returns_associated_merchant
-    item = engine.item_repository.find_by('merchant_id', '1')
-    assert_equal '1', item.merchant.id
+    item = engine.item_repository.find_by('merchant_id', 1)
+    assert_equal 1, item.merchant.id
   end
 
   def test_invoice_item_returns_associated_invoice
-    invoice_item = engine.invoice_item_repository.find_by('id', '16')
+    invoice_item = engine.invoice_item_repository.find_by('id', 16)
     invoice = invoice_item.invoice
-    assert_equal '3', invoice.id
+    assert_equal 3, invoice.id
   end
 
   def test_invoice_item_returns_associated_item
-    invoice_item = engine.invoice_item_repository.find_by('item_id', '2')
+    invoice_item = engine.invoice_item_repository.find_by('item_id', 2)
     item = invoice_item.item
-    assert_equal '2', item.id
+    assert_equal 2, item.id
   end
 
   def test_invoice_can_find_associated_invoice_items
     invoice = engine.invoice_repository.invoices.detect do |invoice|
-      invoice.id == "1"
+      invoice.id == 1
     end
 
     associated_invoice_items = invoice.invoice_items
@@ -83,7 +83,7 @@ class IntegrationTest< Minitest::Test
 
   def test_invoice_can_find_associated_items
     invoice = engine.invoice_repository.invoices.detect do |invoice|
-      invoice.id == "1"
+      invoice.id == 1
     end
 
     associated_invoice_items = invoice.invoice_items
@@ -97,16 +97,16 @@ class IntegrationTest< Minitest::Test
 
   def test_invoice_can_find_an_instance_of_customer_associated_with_itself
     invoice = engine.invoice_repository.invoices.detect do |invoice|
-      invoice.customer_id == "1"
+      invoice.customer_id == 1
       end
 
     associated_customer = invoice.customer
-    assert associated_customer.id == "1"
+    assert associated_customer.id == 1
   end
 
   def test_invoice_can_find_associated_merchant_by_merchant_id
       invoice = engine.invoice_repository.invoices.detect do |invoice|
-        invoice.id == "1"
+        invoice.id == 1
       end
 
       associated_merchant = invoice.merchant

@@ -23,12 +23,12 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_a_single_invoice_by_id
-    result = repository.find_by_id('1')
-    assert result.id, '1'
+    result = repository.find_by_id(1)
+    assert result.id, 1
   end
 
   def test_it_finds_mulitple_invoices_by_customer_id
-    result = repository.find_all_by_customer_id('3')
+    result = repository.find_all_by_customer_id(3)
     assert_equal 4, result.count
   end
 
@@ -43,7 +43,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_merchant_id
-    result = repository.find_all_by_merchant_id('2')
+    result = repository.find_all_by_merchant_id(2)
     assert 10, result.count
   end
 

@@ -19,7 +19,7 @@ class SalesEngineTest< Minitest::Test
   def test_find_items_by_merchant_id
     engine = SalesEngine.new
     engine.startup
-    items = engine.find_items_by_merchant_id("2")
+    items = engine.find_items_by_merchant_id(2)
     assert_equal 10, items.count
   end
 

@@ -28,12 +28,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_items_by_id
-    result = item_repository.find_by_id('1')
-    assert_equal '1', result.id
+    result = item_repository.find_by_id(1)
+    assert_equal 1, result.id
   end
 
   def test_it_can_find_all_items_by_merhcant_id
-    result = item_repository.find_all_by_merchant_id('2')
+    result = item_repository.find_all_by_merchant_id(2)
     assert_equal 10, result.count
   end
 

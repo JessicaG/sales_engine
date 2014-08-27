@@ -33,8 +33,8 @@ def test_it_can_find_merchants_by_name
 end
 
 def test_it_can_find_merchants_by_id
-  result = merchant_repository.find_by_id('1')
-  assert_equal '1', result.id
+  result = merchant_repository.find_by_id(1)
+  assert_equal 1, result.id
 end
 
 

@@ -14,7 +14,7 @@ class BusinessIntelligenceTest< Minitest::Test
     merchant_repository = engine.merchant_repository
 
     assert_equal 8, merchant_repository.most_revenue(8).count
-    assert_equal "18", merchant_repository.most_revenue(3).first.id
+    assert_equal 18, merchant_repository.most_revenue(3).first.id
   end
 
   def test_merchant_repo_can_return_the_top_x_merchants_by_total_number_of_items
@@ -27,7 +27,7 @@ class BusinessIntelligenceTest< Minitest::Test
   def test_merchant_repo_can_return_the_total_revenue_by_date
     merchant_repository = engine.merchant_repository
 
-    assert_equal "21067.77", merchant_repository.revenue("2012-03-25").to_s('F')
+    assert_equal "21067.77", merchant_repository.revenue("2012-03-25")git a
     # assert_equal 8, merchant_repository.revenue("2012-03-25")
     # assert_equal "1", merchant_repository.revenue(date)(3).first.id
   end
@@ -37,7 +37,7 @@ class BusinessIntelligenceTest< Minitest::Test
 
   def test_merchant_can_return_total_revenue_accross_all_transactions
     merchant = engine.merchant_repository.merchants.detect do |merchant|
-      merchant.id == "1"
+      merchant.id == 1
     end
 
     assert_equal "24214.17", merchant.revenue.to_s('F')
@@ -45,15 +45,15 @@ class BusinessIntelligenceTest< Minitest::Test
 
   def test_merchant_can_return_the_total_revenue_for_a_specific_date
     merchant = engine.merchant_repository.merchants.detect do |merchant|
-      merchant.id == "1"
+      merchant.id == 1
     end
 
-    assert_equal "21067.77", merchant.revenue_by_date("2012-03-25").to_s('F')
+    assert_equal "21067.77", merchant.revenue("2012-03-25")
   end
 
   def test_merchant_returns_the_customer_who_has_conducted_the_most_successful_transactions
     merchant = engine.merchant_repository.merchants.detect do |merchant|
-      merchant.id == "1"
+      merchant.id == 1
     end
 
     favorite_customer = merchant.favorite_customer
@@ -61,7 +61,7 @@ class BusinessIntelligenceTest< Minitest::Test
 
   def test_merchant_returns_customers_with_pending_invoices
     merchant = engine.merchant_repository.merchants.detect do |merchant|
-      merchant.id == "1"
+      merchant.id == 1
     end
 
     assert_equal 3, merchant.customers_with_pending_invoices.count
@@ -70,7 +70,7 @@ class BusinessIntelligenceTest< Minitest::Test
 # ***********ITEM BUSINESS INTELLIGENCE ******************
   def test_item_returns_the_date_with_the_most_sales_for_it_using_invoice_date
       item = engine.item_repository.items.detect do |item|
-        item.id == "1"
+        item.id == 1
       end
 
       assert_equal "2012-03-10", item.best_day
@@ -110,18 +110,18 @@ class BusinessIntelligenceTest< Minitest::Test
   def test_invoice_repository_can_create_invoices_on_the_fly
     invoice_repository = engine.invoice_repository
     customer = engine.customer_repository.find_by('id', 1)
-    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
-    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
-    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
-    item3 = engine.item_repository.items.detect {|item| item.id == "3"}
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == 1}
+    item1 = engine.item_repository.items.detect {|item| item.id == 1}
+    item2 = engine.item_repository.items.detect {|item| item.id == 2}
+    item3 = engine.item_repository.items.detect {|item| item.id == 3}
 
 
     new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
                          items: [item1, item2, item3])
 
     assert_equal 26, new_invoice.last.id
-    assert invoice_repository.invoices.any?{|invoice| invoice.id == 26 && invoice.merchant_id == "1" &&
-    invoice.customer_id == "1" && invoice.status == "shipped"}
+    assert invoice_repository.invoices.any?{|invoice| invoice.id == 26 && invoice.merchant_id == 1 &&
+    invoice.customer_id == 1 && invoice.status == "shipped"}
   end
 
   def test_invoice_repository_creates_invoice_items_when_creating_invoices
@@ -129,17 +129,17 @@ class BusinessIntelligenceTest< Minitest::Test
     invoice_repository = engine.invoice_repository
 
     customer = engine.customer_repository.find_by('id', 1)
-    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
-    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
-    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
-    item3 = engine.item_repository.items.detect {|item| item.id == "2"}
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == 1}
+    item1 = engine.item_repository.items.detect {|item| item.id == 1}
+    item2 = engine.item_repository.items.detect {|item| item.id == 2}
+    item3 = engine.item_repository.items.detect {|item| item.id == 2}
 
 
     new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
                          items: [item1, item2, item3])
 
     assert_equal 27, invoice_item_repository.count
-    assert invoice_item_repository.invoice_items.any?{|invoice_item| invoice_item.id == 27 && invoice_item.item_id == "2" &&
+    assert invoice_item_repository.invoice_items.any?{|invoice_item| invoice_item.id == 27 && invoice_item.item_id == 2 &&
     invoice_item.quantity == 2}
   end
 
@@ -147,10 +147,10 @@ class BusinessIntelligenceTest< Minitest::Test
     invoice_repository = engine.invoice_repository
     transaction_repository = engine.transaction_repository
     customer = engine.customer_repository.find_by('id', 1)
-    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
-    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
-    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
-    item3 = engine.item_repository.items.detect {|item| item.id == "3"}
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == 1}
+    item1 = engine.item_repository.items.detect {|item| item.id == 1}
+    item2 = engine.item_repository.items.detect {|item| item.id == 2}
+    item3 = engine.item_repository.items.detect {|item| item.id == 3}
 
 
     new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",

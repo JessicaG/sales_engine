@@ -27,14 +27,9 @@ class TransactionRepositoryTest < Minitest::Test
     assert_equal 25, transaction_repository.all.count
   end
 
-  # def test_it_can_find_transactions_by_name
-  #   result = transaction_repository.find_by_name('Schroeder-Jerde')
-  #   assert_equal 'Schroeder-Jerde', result.name
-  # end
-  #
   def test_it_can_find_transactions_by_id
-    result = transaction_repository.find_by_id('1')
-    assert_equal '1', result.id
+    result = transaction_repository.find_by_id(1)
+    assert_equal 1, result.id
   end
 
   def test_it_can_find_transactions_by_credit_card_number
