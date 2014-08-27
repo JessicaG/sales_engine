@@ -21,7 +21,7 @@ class BusinessIntelligenceTest< Minitest::Test
     merchant_repository = engine.merchant_repository
 
     assert_equal 8, merchant_repository.most_items(8).count
-    assert_equal "1", merchant_repository.most_items(3).first.id
+    assert_equal 1, merchant_repository.most_items(3).first.id
   end
 
   def test_merchant_repo_can_return_the_total_revenue_by_date
@@ -83,12 +83,12 @@ class BusinessIntelligenceTest< Minitest::Test
     customer = engine.customer_repository.find_by('id', 1)
     associated_transactions = customer.transactions
     assert_equal 8, associated_transactions.count
-    assert_equal [1,2,3,4,5,6,7,20].map(&:to_s), associated_transactions.map(&:id)
+    assert_equal [1, 2, 3, 4, 5, 6, 7, 20].map(&:to_s), associated_transactions.map(&:id)
   end
 
   def test_customer_can_return_the_merchant_where_it_has_the_most_successful_transactions
     customer = engine.customer_repository.find_by('id', 1)
-    assert_equal "38", customer.favorite_merchant.id
+    assert_equal 38, customer.favorite_merchant.id
   end
 
   # ****************ITEM REPOSITORY TEST *********************
@@ -96,14 +96,14 @@ class BusinessIntelligenceTest< Minitest::Test
     item_repository = engine.item_repository
 
     assert_equal 10, item_repository.most_revenue(10).count
-    assert_equal "1", item_repository.most_revenue(10).first.id
+    assert_equal 1, item_repository.most_revenue(10).first.id
   end
 
   def test_item_repository_can_return_the_top_x_items_ranked_by_total_number_sold
     item_repository = engine.item_repository
 
     assert_equal 10, item_repository.most_items(10).count
-    assert_equal "1", item_repository.most_items(10).first.id
+    assert_equal 1, item_repository.most_items(10).first.id
   end
 
   # ****************INVOICE REPOSITORY TEST**********************

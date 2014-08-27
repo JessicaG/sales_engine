@@ -13,7 +13,7 @@ class MerchantTest < Minitest::Test
   def test_it_has_attributes
     assert_equal 1,                       merchant.id
     assert_equal "Schroeder-Jerde",         merchant.name
-    assert_equal "2012-03-27 14:53:59 UTC", merchant.created_at
+    assert_equal #<Date: 2012-03-27 ((2456014j,0s,0n),+0s,2299161j), merchant.created_at
     assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
   end
 

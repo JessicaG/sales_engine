@@ -12,7 +12,7 @@ class ItemTest< Minitest::Test
   assert_equal 123,     item.id
   assert_equal "toy",     item.name
   assert_equal "plush",   item.description
-  assert_equal "$1.57",   item.unit_price
+  assert_equal #<BigDecimal:7ff7499134d8,'0.0',9(18)>,   item.unit_price
   assert_equal "success", item.merchant_id
   assert_equal "10:52",   item.created_at
   assert_equal "11:25",   item.updated_at

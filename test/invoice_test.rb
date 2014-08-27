@@ -11,8 +11,8 @@ class InvoiceTest< Minitest::Test
   assert_equal 123,     invoice.id
   assert_equal "456",     invoice.customer_id
   assert_equal "894567",  invoice.merchant_id
-  assert_equal "10:52",   invoice.created_at
-  assert_equal "11:25",   invoice.updated_at
+  assert_equal "2012-03-27 14:54:09 UTC",   invoice.created_at
+  assert_equal "2012-03-27 14:54:09 UTC",   invoice.updated_at
 
   end
 end

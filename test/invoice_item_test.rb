@@ -12,7 +12,7 @@ class InvoiceItemTest< Minitest::Test
   assert_equal 456,     invoice_items.item_id
   assert_equal 894567,  invoice_items.invoice_id
   assert_equal 10,      invoice_items.quantity
-  assert_equal "$1.50",   invoice_items.unit_price
+  assert_equal #<BigDecimal:7f98c1329428,'0.0',9(18)>,   invoice_items.unit_price
   assert_equal "10:52",   invoice_items.created_at
   assert_equal "11:25",   invoice_items.updated_at
 
