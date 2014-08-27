@@ -37,6 +37,10 @@ class MerchantRepository
     find_by('name', value)
   end
 
+  def find_all_by_name(value)
+    find_all_by('name', value)
+  end
+
   def find_by_id(value)
     find_by('id', value)
   end
