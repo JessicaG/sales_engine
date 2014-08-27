@@ -75,10 +75,13 @@ class Merchant
   end
 
   def customers_with_pending_invoices
-    binding.pry
-    failing_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result != "success"}}
+    # binding.pry
+    # failing_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result != "success"}}
+    # failing_invoices.map{|invoice| invoice.customer
+    failing_invoices = invoices.map {|invoice| invoice if invoice.successful_charge? == false }
+    # binding.pry
+    failing_invoices.select! { |invoice| invoice if invoice != nil }
     failing_invoices.map{|invoice| invoice.customer}
-    #invoices.successful_transaction
   end
 
   def amount_sold

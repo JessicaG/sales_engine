@@ -28,4 +28,8 @@ class Transaction
   def successful?
     result == "success"
   end
+
+  def failed? 
+    result == "failed"
+  end
 end
