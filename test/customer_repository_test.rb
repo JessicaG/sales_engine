@@ -34,8 +34,8 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_finds_a_single_id
-    result = repository.find_by_id('1')
-    assert '1', result.id
+    result = repository.find_by_id('1', id)
+    assert 1, result.id
   end
 
   def test_it_can_find_all_by_last_name

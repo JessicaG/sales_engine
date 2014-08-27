@@ -6,6 +6,7 @@ require_relative '../lib/customer_repository'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/item_repository'
 require_relative '../lib/repository_parser'
+require 'pry'
 
 class SalesEngine
   attr_reader :customer_repository,
@@ -27,22 +28,22 @@ class SalesEngine
   end
 
   def load_repositories
-   @merchant_rows     = RepositoryParser.load(@directory + '/merchants.csv')
-   @customer_rows     = RepositoryParser.load(@directory + '/customers.csv')
-   @invoice_rows      = RepositoryParser.load(@directory + '/invoices.csv')
-   @invoice_item_rows = RepositoryParser.load(@directory + '/invoice_items.csv')
-   @item_rows         = RepositoryParser.load(@directory + '/items.csv')
-   @transaction_rows  = RepositoryParser.load(@directory + '/transactions.csv')
+    @merchant_rows     ||= RepositoryParser.load(@directory + '/merchants.csv')
+    @customer_rows     ||= RepositoryParser.load(@directory + '/customers.csv')
+    @invoice_rows      ||= RepositoryParser.load(@directory + '/invoices.csv')
+    @invoice_item_rows ||= RepositoryParser.load(@directory + '/invoice_items.csv')
+    @item_rows         ||= RepositoryParser.load(@directory + '/items.csv')
+    @transaction_rows  ||= RepositoryParser.load(@directory + '/transactions.csv')
   end
 
   def startup
     load_repositories
-    @merchant_repository      = MerchantRepository.new(self, merchant_rows)
-    @customer_repository      = CustomerRepository.new(self, customer_rows)
-    @invoice_repository       = InvoiceRepository.new(self, invoice_rows)
-    @invoice_item_repository  = InvoiceItemRepository.new(self, invoice_item_rows)
-    @item_repository          = ItemRepository.new(self, item_rows)
-    @transaction_repository   = TransactionRepository.new(self, transaction_rows)
+    @merchant_repository      ||= MerchantRepository.new(self, merchant_rows)
+    @customer_repository      ||= CustomerRepository.new(self, customer_rows)
+    @invoice_repository       ||= InvoiceRepository.new(self, invoice_rows)
+    @invoice_item_repository  ||= InvoiceItemRepository.new(self, invoice_item_rows)
+    @item_repository          ||= ItemRepository.new(self, item_rows)
+    @transaction_repository   ||= TransactionRepository.new(self, transaction_rows)
   end
 
   def find_items_by_merchant_id(id)
@@ -54,6 +55,7 @@ class SalesEngine
   end
 
   def find_transactions_by_invoice_id(id)
+    # binding.pry
     transaction_repository.find_all_by('invoice_id',id)
   end
 
@@ -73,8 +75,8 @@ class SalesEngine
   end
 
   #Invoice: merchant returns an instance of Merchant associated with this object
-  def find_merchants_by_item_id(id)
-    item_repository.find_by('merchant_id', id)
+  def find_merchant_by_merchant_id(id)
+    merchant_repository.find_by('id', id)
   end
 
   #InvoiceItems: invoice returns an instance of Invoice associated with this object
@@ -104,6 +106,7 @@ class SalesEngine
   end
 
   def find_customer_by_customer_id(customer_id)
+    # binding.pry
     customer_repository.find_by('id', customer_id)
   end
 

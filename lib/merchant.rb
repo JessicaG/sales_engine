@@ -8,7 +8,7 @@ class Merchant
               :merchant_repository
 
   def initialize(data, repository)
-    @id                  = data[:id]
+    @id                  = data[:id].to_i
     @name                = data[:name]
     @created_at          = data[:updated_at]
     @updated_at          = data[:created_at]
@@ -29,6 +29,8 @@ class Merchant
 
     BigDecimal(total_revenue/100.00, 7)
   end
+
+  ##refactor for revenue && revenue(date) into one method
 
   def revenue_by_date(date)
     invoices_from_date = invoices.select {|invoice| invoice.created_at[0..9] == date}

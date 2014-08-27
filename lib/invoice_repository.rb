@@ -27,13 +27,13 @@ class InvoiceRepository
 
   def find_by(attribute, value)
     invoices.detect do |invoice|
-      invoice.send(attribute) =~ /^#{value}$/i
+      invoice.send(attribute) == value
     end
   end
 
   def find_all_by(attribute, value)
     invoices.select do |invoice|
-      invoice.send(attribute) =~ /^#{value}$/i
+      invoice.send(attribute) == value
     end
   end
 

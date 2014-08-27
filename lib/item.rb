@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Item
 
   attr_reader :id,
@@ -10,11 +12,11 @@ class Item
               :item_repository
 
   def initialize(data, repository)
-    @id              = data[:id]
+    @id              = data[:id].to_i
     @name            = data[:name]
     @description     = data[:description]
-    @unit_price      = data[:unit_price]
-    @merchant_id     = data[:merchant_id]
+    @unit_price      = BigDecimal.new((data[:unit_price].to_f/100.00).to_s)
+    @merchant_id     = data[:merchant_id].to_i
     @created_at      = data[:created_at]
     @updated_at      = data[:updated_at]
     @item_repository = repository
@@ -26,7 +28,7 @@ class Item
   end
 # merchant returns an instance of Merchant associated with this object
   def merchant
-    item_repository.find_merchants_by_item_id(id)
+    item_repository.find_merchant_by_merchant_id(merchant_id)
   end
 
   def best_day
