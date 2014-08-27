@@ -1,4 +1,6 @@
 require 'bigdecimal'
+require 'pry'
+require 'date'
 
 class Merchant
   attr_reader :id,
@@ -10,8 +12,8 @@ class Merchant
   def initialize(data, repository)
     @id                  = data[:id].to_i
     @name                = data[:name]
-    @created_at          = data[:updated_at]
-    @updated_at          = data[:created_at]
+    @created_at          = Date.parse(data[:updated_at])
+    @updated_at          = Date.parse(data[:created_at])
     @merchant_repository = repository
   end
 
@@ -25,7 +27,6 @@ class Merchant
 
   def revenue(date= nil)
     if date.nil?
-
       total_revenue =
       successful_invoices(invoices).collect { |invoice| invoice.amount }.reduce(:+)
     else
@@ -74,8 +75,10 @@ class Merchant
   end
 
   def customers_with_pending_invoices
+    binding.pry
     failing_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result != "success"}}
     failing_invoices.map{|invoice| invoice.customer}
+    #invoices.successful_transaction
   end
 
   def amount_sold

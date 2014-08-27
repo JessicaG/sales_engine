@@ -1,4 +1,5 @@
 require_relative 'merchant'
+require 'date'
 
 class MerchantRepository
 
@@ -58,8 +59,7 @@ class MerchantRepository
   end
 
   def revenue(date)
-    # binding.pry
-    merchants.map { |merchant| merchant.revenue(date) }.reduce(0, :+)
+    merchants.map { |merchant| merchant.revenue(date) || 0 }.reduce(0, :+)
   end
 
   def most_items(value)
