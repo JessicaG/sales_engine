@@ -37,27 +37,6 @@ class Merchant
     total_revenue
   end
 
-  # def to_bigdecimal(cents)
-  #   x = cents.to_i / 100.00
-  #   BigDecimal.new(x.to_s)
-  # end
-
-  # def revenue
-  #   associated_invoice_items = successful_invoices(invoices).flat_map{|invoice| invoice.invoice_items}
-  #   total_revenue = associated_invoice_items.reduce(0) {|sum, invoice_item| sum + (invoice_item.quantity.to_i * invoice_item.unit_price.to_i )}
-  #
-  #   BigDecimal(total_revenue, 7)
-  # end
-  #
-  # ##refactor for revenue && revenue(date) into one method
-  #
-  # def revenue_by_date(date)
-  #   invoices_from_date = invoices.select {|invoice| invoice.created_at[0..9] == date}
-  #   invoice_items_from_date = successful_invoices(invoices_from_date).flat_map{|invoice| invoice.invoice_items}
-  #   total_revenue_for_date = invoice_items_from_date.reduce(0) {|sum, n| sum + (n.quantity.to_i * n.unit_price.to_i )}
-  #   BigDecimal(total_revenue_for_date, 7)
-  # end
-
   def customers
     customers = invoices.map(&:customer)
   end
@@ -75,11 +54,7 @@ class Merchant
   end
 
   def customers_with_pending_invoices
-    # binding.pry
-    # failing_invoices = invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result != "success"}}
-    # failing_invoices.map{|invoice| invoice.customer
     failing_invoices = invoices.map {|invoice| invoice if invoice.successful_charge? == false }
-    # binding.pry
     failing_invoices.select! { |invoice| invoice if invoice != nil }
     failing_invoices.map{|invoice| invoice.customer}
   end

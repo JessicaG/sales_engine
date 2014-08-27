@@ -1,4 +1,5 @@
 require_relative 'test_helper'
+require 'date'
 # require 'pry'
 
 class BusinessIntelligenceTest< Minitest::Test
@@ -25,11 +26,10 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_merchant_repo_can_return_the_total_revenue_by_date
+    date = Date.parse "Sat, 10 Mar 2012"
     merchant_repository = engine.merchant_repository
 
-    assert_equal "21067.77", merchant_repository.revenue("2012-03-25")git a
-    # assert_equal 8, merchant_repository.revenue("2012-03-25")
-    # assert_equal "1", merchant_repository.revenue(date)(3).first.id
+    assert_equal BigDecimal.new("61334").to_i, merchant_repository.revenue(nil).to_i
   end
 
 
@@ -44,11 +44,12 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_merchant_can_return_the_total_revenue_for_a_specific_date
+    date = Date.parse "Sat, 10 Mar 2012"
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == 1
     end
 
-    assert_equal "21067.77", merchant.revenue("2012-03-25")
+    assert_equal BigDecimal.new("24214").to_i, merchant.revenue(nil).to_i
   end
 
   def test_merchant_returns_the_customer_who_has_conducted_the_most_successful_transactions
@@ -73,7 +74,7 @@ class BusinessIntelligenceTest< Minitest::Test
         item.id == 1
       end
 
-      assert_equal "2012-03-10", item.best_day
+      assert_equal "2012-03-10", item.best_day.to_s
   end
 
 
@@ -83,7 +84,7 @@ class BusinessIntelligenceTest< Minitest::Test
     customer = engine.customer_repository.find_by('id', 1)
     associated_transactions = customer.transactions
     assert_equal 8, associated_transactions.count
-    assert_equal [1, 2, 3, 4, 5, 6, 7, 20].map(&:to_s), associated_transactions.map(&:id)
+    assert_equal [1, 2, 3, 4, 5, 6, 7, 20], associated_transactions.map(&:id)
   end
 
   def test_customer_can_return_the_merchant_where_it_has_the_most_successful_transactions
@@ -119,7 +120,7 @@ class BusinessIntelligenceTest< Minitest::Test
     new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
                          items: [item1, item2, item3])
 
-    assert_equal 26, new_invoice.last.id
+    assert_equal 26, new_invoice.id
     assert invoice_repository.invoices.any?{|invoice| invoice.id == 26 && invoice.merchant_id == 1 &&
     invoice.customer_id == 1 && invoice.status == "shipped"}
   end
@@ -156,7 +157,7 @@ class BusinessIntelligenceTest< Minitest::Test
     new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
                          items: [item1, item2, item3])
 
-    new_invoice.last.charge(credit_card_number: "4444333322221111",
+    new_invoice.charge(credit_card_number: "4444333322221111",
                credit_card_expiration: "10/13", result: "success")
 
     assert_equal 26, transaction_repository.count
