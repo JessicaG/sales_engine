@@ -13,6 +13,10 @@ class TransactionRepository
      "#<#{self.class} #{@transactions.size} rows>"
   end
 
+  def count
+    @transactions.count
+  end
+
   def all
     @transactions
   end
@@ -49,4 +53,15 @@ class TransactionRepository
     sales_engine.find_invoice_by_transaction_id(id)
   end
 
+  def new_transacation(options, id)
+    data = {id:                           count + 1,
+            invoice_id:                   id,
+            credit_card_number:           options[:credit_card_number],
+            credit_card_expiration_date:  options[:credit_card_expiration],
+            result:                       options[:result],
+            created_at:                   Time.new.utc,
+            updated_at:                   Time.new.utc,
+           }
+    transactions << Transaction.new(data, self)
+  end
 end

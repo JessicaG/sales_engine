@@ -46,4 +46,9 @@ class Invoice
   def amount
     invoice_items.map(&:total_price).reduce(0, :+)
   end
+
+  def charge(options = {})
+    invoice_repository.new_transacation(options, id)
+  end
+
 end

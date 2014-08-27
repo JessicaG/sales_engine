@@ -106,25 +106,60 @@ class BusinessIntelligenceTest< Minitest::Test
     assert_equal "1", item_repository.most_items(10).first.id
   end
 
-  # def test_favorite_merchant_can_return_associated_customer_instances
-  #   skip
-  #   customer = engine.customer_repository.find_by('id', 1)
-  #   assert_equal 'Shroeder-Jerde', favorite_merchant
-  #
-  #   assert_equal "3", merchant.favorite_customer.id
-  # end
-
-  # def test_it_can_return_customers_with_pending_invoices
-  #   skip
-  #   merchant = engine.merchant_repository.find_by('id', 10)
-  #   assert_equal 'Mariah', merchant.customers_with_pending_invoices.first.first_name
-  # end
-
-  # def test_it_can_return_customer_with_most_successful_transactions_for_merchants
-  #   skip
-  #   merchant = engine.merchant_repository.find_by('id', 1)
-  #   assert_equal 'Joey', merchant.favorite_customer.first.first_name
-  # end
+  # ****************INVOICE REPOSITORY TEST**********************
+  def test_invoice_repository_can_create_invoices_on_the_fly
+    invoice_repository = engine.invoice_repository
+    customer = engine.customer_repository.find_by('id', 1)
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
+    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
+    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
+    item3 = engine.item_repository.items.detect {|item| item.id == "3"}
 
 
+    new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
+                         items: [item1, item2, item3])
+
+    assert_equal 26, new_invoice.last.id
+    assert invoice_repository.invoices.any?{|invoice| invoice.id == 26 && invoice.merchant_id == "1" &&
+    invoice.customer_id == "1" && invoice.status == "shipped"}
+  end
+
+  def test_invoice_repository_creates_invoice_items_when_creating_invoices
+    invoice_item_repository = engine.invoice_item_repository
+    invoice_repository = engine.invoice_repository
+
+    customer = engine.customer_repository.find_by('id', 1)
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
+    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
+    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
+    item3 = engine.item_repository.items.detect {|item| item.id == "2"}
+
+
+    new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
+                         items: [item1, item2, item3])
+
+    assert_equal 27, invoice_item_repository.count
+    assert invoice_item_repository.invoice_items.any?{|invoice_item| invoice_item.id == 27 && invoice_item.item_id == "2" &&
+    invoice_item.quantity == 2}
+  end
+
+  def test_when_an_invoice_is_charged_a_new_transaction_is_created
+    invoice_repository = engine.invoice_repository
+    transaction_repository = engine.transaction_repository
+    customer = engine.customer_repository.find_by('id', 1)
+    merchant = engine.merchant_repository.merchants.detect {|merchant| merchant.id == "1"}
+    item1 = engine.item_repository.items.detect {|item| item.id == "1"}
+    item2 = engine.item_repository.items.detect {|item| item.id == "2"}
+    item3 = engine.item_repository.items.detect {|item| item.id == "3"}
+
+
+    new_invoice = invoice_repository.create(customer: customer, merchant: merchant, status: "shipped",
+                         items: [item1, item2, item3])
+
+    new_invoice.last.charge(credit_card_number: "4444333322221111",
+               credit_card_expiration: "10/13", result: "success")
+
+    assert_equal 26, transaction_repository.count
+    assert transaction_repository.transactions.any?{|transaction| transaction.id == 26 && transaction.credit_card_number == "4444333322221111"}
+  end
 end
