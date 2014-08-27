@@ -54,36 +54,29 @@ class SalesEngine
   end
 
   def find_transactions_by_invoice_id(id)
-    # binding.pry
     transaction_repository.find_all_by('invoice_id',id)
   end
 
-  #Transaction: invoice returns an instance of Invoice associated with this object
   def find_invoice_by_transaction_id(id)
     invoice_repository.find_by('id', id)
   end
 
-  #Customer: invoices returns a collection of Invoice instances associated with this object.
   def find_invoices_by_customer_id(id)
     invoice_repository.find_all_by('customer_id', id)
   end
 
-  #Invoice: invoice_items returns a collection of InvoiceItems associated with this object
   def find_invoice_items_by_item_id(id)
     invoice_item_repository.find_all_by('item_id', id)
   end
 
-  #Invoice: merchant returns an instance of Merchant associated with this object
   def find_merchant_by_merchant_id(id)
     merchant_repository.find_by('id', id)
   end
 
-  #InvoiceItems: invoice returns an instance of Invoice associated with this object
   def find_invoice_by_invoice_id(id)
     invoice_repository.find_by('id', id)
   end
 
-  #InvoiceItems: item returns an instance of Item associated with this object
   def find_item_by_item_id(id)
     item_repository.find_by('id',id)
   end
@@ -119,6 +112,5 @@ class SalesEngine
   def new_transacation(options, id)
     transaction_repository.new_transacation(options, id)
   end
-
 
 end

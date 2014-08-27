@@ -1,3 +1,4 @@
+require 'pry'
 class Customer
 
   attr_reader :id,
@@ -25,13 +26,18 @@ class Customer
   end
 
   def favorite_merchant
-    merchant_count = successful_invoices.map{|s_invoice| successful_invoices.count{|invoice| invoice.merchant_id == s_invoice.merchant_id}}
-    invoices_and_merchant_count = successful_invoices.zip(merchant_count)
-    favorite_invoice = invoices_and_merchant_count.max_by{|invoice_count| invoice_count[1]}[0]
-    favorite_invoice.merchant
+    grouped_merchants = successful_merchants.group_by { |merchant| merchant.id }.values
+    grouped_merchants.max_by(&:count).first
   end
 
   def successful_invoices
-    invoices.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
+    invoices.select { |invoice| invoice.transactions.any?{ |transaction| transaction.result == "success" } }
   end
+
+  private
+
+  def successful_merchants
+    successful_invoices.map(&:merchant).compact
+  end
+
 end

@@ -33,7 +33,8 @@ class Item
   def best_day
     invoice_item_dates_revenues = invoice_items.map{|invoice_item| [invoice_item.invoice.created_at, invoice_item.total_price]}
     invoice_item_revenues_grouped_by_date = invoice_item_dates_revenues.group_by{|date_revenue| date_revenue[0]}
-    combined_date_revenue_array = invoice_item_revenues_grouped_by_date.each_pair.map{|key, value| [key, value.reduce(0){|sum, ary| sum + ary[1]}]}    best_date = combined_date_revenue_array.sort_by{|ary| ary[1]}[-1][0]
+    combined_date_revenue_array = invoice_item_revenues_grouped_by_date.each_pair.map{|key, value| [key, value.reduce(0){|sum, ary| sum + ary[1]}]}
+    best_date = combined_date_revenue_array.sort_by{|ary| ary[1]}[-1][0]
   end
 
   def revenue
@@ -46,7 +47,7 @@ class Item
   end
 
   def paid_invoice_items
-     invoice_items.find_all(&:successful?)
+    invoice_items.find_all(&:successful?)
   end
 
 end
