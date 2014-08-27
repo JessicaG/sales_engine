@@ -30,6 +30,8 @@ class Merchant
     BigDecimal(total_revenue/100.00, 7)
   end
 
+  ##refactor for revenue && revenue(date) into one method
+
   def revenue_by_date(date)
     invoices_from_date = invoices.select {|invoice| invoice.created_at[0..9] == date}
     invoice_items_from_date = successful_invoices(invoices_from_date).flat_map{|invoice| invoice.invoice_items}
