@@ -27,14 +27,20 @@ class Merchant
 
   def revenue(date= nil)
     if date.nil?
-      total_revenue =
-      successful_invoices(invoices).collect { |invoice| invoice.amount }.reduce(:+)
-    else
-      total_revenue =
-      successful_invoices(invoices).select { |invoice| invoice.created_at == date }
-      .collect { |invoice| invoice.amount }.reduce(:+)
+        # binding.pry
+        revenues = successful_invoices(invoices).collect { |invoice| invoice.amount }
+        revenue = revenues.reduce(:+)
+      else
+        invoices_for_date = successful_invoices(invoices).select { |invoice| invoice.created_at == date }
+        revenues = invoices_for_date.collect{ |invoice| invoice.amount }
+        revenue = revenues.reduce(:+)
     end
-    total_revenue
+
+    if revenue == nil
+        return 0
+      else
+        return revenue
+    end
   end
 
   def customers
