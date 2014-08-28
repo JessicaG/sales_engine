@@ -12,7 +12,6 @@ class BusinessIntelligenceTest< Minitest::Test
 
 # **********MERCHANT REPOSITORY BUSINESS INTELLIGENCE*************
   def test_merchant_repo_can_return_the_top_x_merchants_by_total_revenue
-    skip
     merchant_repository = engine.merchant_repository
 
     assert_equal 8, merchant_repository.most_revenue(8).count
@@ -27,10 +26,10 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_merchant_repo_can_return_the_total_revenue_by_date
-    date = Date.parse "Sat, 10 Mar 2012"
+    date = Date.parse "Sun, 25 Mar 2012"
     merchant_repository = engine.merchant_repository
 
-    assert_equal BigDecimal.new("61334").to_i, merchant_repository.revenue(nil).to_i
+    assert_equal BigDecimal.new("21067").to_i, merchant_repository.revenue(date).to_i
   end
 
 
@@ -41,20 +40,19 @@ class BusinessIntelligenceTest< Minitest::Test
       merchant.id == 1
     end
 
-    assert_equal "24214.17", merchant.revenue.to_s('F')
+    assert_equal BigDecimal.new("24214.17"), merchant.revenue
   end
 
   def test_merchant_can_return_the_total_revenue_for_a_specific_date
-    date = Date.parse "Sat, 10 Mar 2012"
+    date = Date.parse "Sun, 25 Mar 2012"
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == 1
     end
 
-    assert_equal BigDecimal.new("24214").to_i, merchant.revenue(nil).to_i
+    assert_equal BigDecimal.new("21067").to_i, merchant.revenue(date).to_i
   end
 
   def test_merchant_returns_the_customer_who_has_conducted_the_most_successful_transactions
-    skip
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == 1
     end
