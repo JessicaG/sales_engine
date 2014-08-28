@@ -42,12 +42,10 @@ class Merchant
   end
 
   def favorite_customer
-    invoices = successful_invoices(self.invoices)
-    customer_count = invoices.map{|s_invoice| invoices.count{|invoice| invoice.customer_id == s_invoice.customer_id}}
-    invoices_and_customer_count = invoices.zip(customer_count)
-    favorite_customer_invoice = invoices_and_customer_count.max_by{|invoice_count| invoice_count[1]}[0]
-    favorite_customer_invoice.customer
+    grouped_customers = s_invoices.group_by {|customer| customer.id }.values
+    grouped_customers.max_by(&:count).first
   end
+
 
   def successful_invoices(invoice_collection)
     invoice_collection.select {|invoice| invoice.transactions.any?{|transaction| transaction.result == "success"}}
@@ -62,6 +60,12 @@ class Merchant
   def amount_sold
     successful_items = successful_invoices(invoices).flat_map{|invoice| invoice.items}
     successful_items.count
+  end
+
+  private
+
+  def s_invoices
+    successful_invoices(self.invoices).map(&:customer)
   end
 
 end

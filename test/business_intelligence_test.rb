@@ -76,7 +76,7 @@ class BusinessIntelligenceTest< Minitest::Test
         item.id == 1
       end
 
-      assert_equal "2012-03-10", item.best_day.to_s
+      assert_equal "2012-03-25", item.best_day.to_s
   end
 
 
