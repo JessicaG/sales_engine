@@ -12,7 +12,6 @@ class BusinessIntelligenceTest< Minitest::Test
 
 # **********MERCHANT REPOSITORY BUSINESS INTELLIGENCE*************
   def test_merchant_repo_can_return_the_top_x_merchants_by_total_revenue
-    skip
     merchant_repository = engine.merchant_repository
 
     assert_equal 8, merchant_repository.most_revenue(8).count
@@ -54,7 +53,6 @@ class BusinessIntelligenceTest< Minitest::Test
   end
 
   def test_merchant_returns_the_customer_who_has_conducted_the_most_successful_transactions
-    skip
     merchant = engine.merchant_repository.merchants.detect do |merchant|
       merchant.id == 1
     end
