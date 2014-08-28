@@ -27,8 +27,8 @@ class TransactionRepository
 
   def find_by(attribute, value)
     transactions.detect do |transaction|
-      transaction.send(attribute) == value 
-    end
+      transaction.send(attribute) == value
+      end
   end
 
   def find_all_by(attribute, value)

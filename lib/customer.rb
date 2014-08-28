@@ -26,7 +26,8 @@ class Customer
   end
 
   def favorite_merchant
-    grouped_merchants = successful_merchants.group_by { |merchant| merchant.id }.values
+    grouped_merchants =
+    successful_merchants.group_by { |merchant| merchant.id }.values
     grouped_merchants.max_by(&:count).first
   end
 

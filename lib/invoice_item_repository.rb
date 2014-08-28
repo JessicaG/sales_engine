@@ -63,7 +63,8 @@ class InvoiceItemRepository
 
   def new_invoice_items(options, invoice_id)
     grouped_items = options[:items].group_by {|item| item}
-    items_and_counts_array = grouped_items.each_pair.map{|key, value| [key, value.count]}
+    items_and_counts_array =
+    grouped_items.each_pair.map{|key, value| [key, value.count]}
 
     items_and_counts_array.each do |item_count|
           data = {id:               count + 1,
